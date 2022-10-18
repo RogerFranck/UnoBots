@@ -1,0 +1,35 @@
+.Card {
+  width: 150px;
+  height: 200px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 15px;
+}
+
+.Card:hover {
+  position: relative;
+  bottom: 20px;
+}
+
+.CenterText {
+  font-size: 80px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.miniTextRight {
+  display: flex;
+  justify-content: end;
+  height: 50px;
+  align-items: flex-end;
+}
+
+.miniTextLeft {
+  display: flex;
+  justify-content: start;
+  height: 50px;
+  align-items: flex-start;
+}
