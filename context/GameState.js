@@ -1,54 +1,37 @@
 import React, { useReducer } from 'react'
 import GameReducer from './GameReducer'
 import GameContext from './GameContext'
-import { DRAW_PLAYER_STACK, PLAY_PLAYER_PLAYZONE, GET_PLAYERS_CARD } from "./types";
+import { DRAW_PLAYER_STACK, PLAY_PLAYER_PLAYZONE, GET_PLAYERS_CARD, NEXT_PLAYER } from "./types";
 import { content } from '../constants/content'
 
 const GameState = ({ children }) => {
 
   const initialState = {
-    playerHand: [
-      { number: '2', color: 'Red' },
-      { number: '7', color: 'Blue' },
-      { number: '9', color: 'Yellow' },
-      { number: '4', color: 'Green' },
-      { number: '3', color: 'Red' },
-      { number: '0', color: 'Yellow' },
-      { number: '2', color: 'Green' },
-    ],
-    FobosBot: [
-      { number: '2', color: 'Red' },
-      { number: '7', color: 'Blue' },
-      { number: '9', color: 'Yellow' },
-      { number: '4', color: 'Green' },
-      { number: '3', color: 'Red' },
-      { number: '0', color: 'Yellow' },
-      { number: '2', color: 'Green' },
-    ],
-    DeimosBot: [
-      { number: '2', color: 'Red' },
-      { number: '7', color: 'Blue' },
-      { number: '9', color: 'Yellow' },
-      { number: '4', color: 'Green' },
-      { number: '3', color: 'Red' },
-      { number: '0', color: 'Yellow' },
-      { number: '2', color: 'Green' },
-    ],
-    Stack: [
-      { number: '2', color: 'Red' },
-      { number: '7', color: 'Blue' },
-      { number: '9', color: 'Yellow' },
-      { number: '4', color: 'Green' },
-      { number: '3', color: 'Red' },
-      { number: '0', color: 'Yellow' },
-      { number: '2', color: 'Green' },
-    ],
-    PlayZone: [
-      { number: '8', color: 'Green' }
-    ],
+    playerHand: [{ number: '0', color: 'Red' }],
+    FobosBot: [{ number: '0', color: 'Red' }],
+    DeimosBot: [{ number: '0', color: 'Red' }],
+    Stack: [{ number: '0', color: 'Red' }],
+    PlayZone: [{ number: '0', color: 'Red' }],
+    turno: 0,
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
+
+  const NextPlayer = () => {
+    const currentPlayer = state.turno
+    let newPlayer = currentPlayer
+    if (currentPlayer == 2) {
+      newPlayer = 0
+    } else {
+      newPlayer = currentPlayer + 1
+    }
+    dispatch({
+      type: NEXT_PLAYER,
+      payload: {
+        newPlayer,
+      }
+    })
+  }
 
   const setUpGame = () => {
     const randomDek = content.sort(function () { return Math.random() - 0.5 })
@@ -84,6 +67,9 @@ const GameState = ({ children }) => {
   }
 
   const PlayPlayerCards = (card) => {
+    if (state.turno != 0) {
+      return;
+    }
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
       const newPlace = state.PlayZone
@@ -96,6 +82,7 @@ const GameState = ({ children }) => {
           newPlace,
         }
       })
+      NextPlayer()
     }
   }
 
@@ -106,6 +93,7 @@ const GameState = ({ children }) => {
       DeimosBot: state.DeimosBot,
       Stack: state.Stack,
       PlayZone: state.PlayZone,
+      turno: state.turno,
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,
