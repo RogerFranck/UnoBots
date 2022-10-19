@@ -55,12 +55,21 @@ const GameState = ({ children }) => {
   const DrawPlayerCard = () => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
-    const playerHandList = state.playerHand
-    playerHandList.push(cardDraw)
+    let HandList = state.playerHand
+    if (state.turno == 0) {
+      HandList = state.playerHand
+    }
+    if (state.turno == 1) {
+      HandList = state.DeimosBot
+    }
+    if (state.turno == 2) {
+      HandList = state.FobosBot
+    }
+    HandList.push(cardDraw) //! Como puedo mandarlo a la mano correcta?
     dispatch({
       type: DRAW_PLAYER_STACK,
       payload: {
-        playerHandList,
+        HandList,
         stackList,
       }
     })
