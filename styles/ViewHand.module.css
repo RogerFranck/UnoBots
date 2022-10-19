@@ -1,3 +1,9 @@
 .TableGame {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.BotGame {
   display: flex;
+  flex-direction: column;
 }

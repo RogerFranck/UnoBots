@@ -1,20 +1,58 @@
 .Card {
-  width: 150px;
-  height: 200px;
+  width: 125px;
+  height: 175px;
   color: white;
   border-radius: 10px;
   padding: 5px;
   margin: 15px;
+  display: inline-block;
+}
+
+.CardFocus {
+  width: 125px;
+  height: 175px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 15px;
+  display: inline-block;
 }
 
 .Card:hover {
   position: relative;
-  bottom: 20px;
+  bottom: 15px;
+  cursor: pointer;
+}
+
+.UnoCard {
+  width: 125px;
+  height: 175px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 15px;
+  display: inline-block;
+  background-color: rgb(44, 44, 44);
+}
+
+.UnoCardUnFocus {
+  width: 175px;
+  height: 125px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  border: 1px solid gray;
+  margin: 5px 5px -90px 5px;
+  background-color: rgb(44, 44, 44);
+}
+
+.UnoCard:hover {
+  cursor: pointer;
 }
 
 .CenterText {
   font-size: 80px;
-  height: 90px;
+  height: 105px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,13 +61,42 @@
 .miniTextRight {
   display: flex;
   justify-content: end;
-  height: 50px;
+  height: 30px;
   align-items: flex-end;
 }
 
 .miniTextLeft {
   display: flex;
   justify-content: start;
-  height: 50px;
+  height: 30px;
   align-items: flex-start;
+}
+
+.CenterImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 168px;
+}
+
+.CenterImageBot {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 122px;
+}
+
+.CenterImageBotLeft {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(-90deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 122px;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from '../../styles/Card.module.css'
 
 const colorCode = {
@@ -9,10 +9,10 @@ const colorCode = {
   Especial: 'Black'
 }
 
-export default function NumberCard({ Number, Color }) {
+export default function NumberCard({ Number, Color, Focus }) {
 
   return (
-    <div className={styles.Card} style={{ backgroundColor: colorCode[Color]}} >
+    <div className={Focus ? styles.Card : styles.CardFocus} style={{ backgroundColor: colorCode[Color] }} >
       <div className={styles.miniTextLeft}>{Number}</div>
       <div className={styles.CenterText} >{Number}</div>
       <div className={styles.miniTextRight} >{Number}</div>
