@@ -1,4 +1,4 @@
-import { DRAW_PLAYER_STACK, PLAY_PLAYER_PLAYZONE } from "./types";
+import { DRAW_PLAYER_STACK, PLAY_PLAYER_PLAYZONE, GET_PLAYERS_CARD } from "./types";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state, action) => {
@@ -16,6 +16,15 @@ export default (state, action) => {
         ...state,
         playerHand: payload.newPlayerHand,
         PlayZone: payload.newPlace,
+      };
+    case GET_PLAYERS_CARD:
+      return {
+        ...state,
+        playerHand: payload.newPlayerHand,
+        FobosBot: payload.newFobosHand,
+        FobosBot: payload.newDeimosHand,
+        PlayZone: payload.firsPlayZone,
+        Stack: payload.newStack
       };
     default:
       return state;

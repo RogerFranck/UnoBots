@@ -13,10 +13,10 @@ export default function UnoCard({ onClick, bot, left, index}) {
     >
       <div className={bot ? left ? styles.CenterImageBotLeft : styles.CenterImageBot : styles.CenterImage} >
         <Image
-          src='/UnoCard/UNO_Logo.png'
+          src='/UnoCard/logo.png'
           alt='Uno'
-          width={70}
-          height={50}
+          width={80}
+          height={80}
         />
       </div>
     </div>

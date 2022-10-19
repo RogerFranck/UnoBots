@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import BotHand from "../components/Hand/BotHand"
 import ViewHand from "../components/Hand/ViewHand"
 import PlayZone from "../components/Stack/Playzone"
@@ -8,7 +8,13 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
 
-  const { playerHand, FobosBot, DeimosBot } = useContext(GameContext)  
+  const { playerHand, FobosBot, DeimosBot, setUpGame } = useContext(GameContext)
+
+  useEffect(() => {
+    setUpGame()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
 
   return (
     <div className={styles.Home} >
@@ -21,7 +27,9 @@ export default function Home() {
         </div>
         <BotHand listCard={DeimosBot} />
       </div>
-      <ViewHand listCard={playerHand} />
+      <center>
+        <ViewHand listCard={playerHand} />
+      </center>
     </div>
   )
 }
