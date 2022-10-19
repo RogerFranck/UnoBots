@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../../styles/ViewHand.module.css'
 import UnoCard from '../Cards/UnoCard';
+import PropTypes from 'prop-types';
 
 export default function BotHand({ listCard, left }) {
 
@@ -13,7 +14,7 @@ export default function BotHand({ listCard, left }) {
   return (
     <div>
       <center>
-        <span># Cards: {listCard.length} </span>
+        <span> {left ? 'Fobos : ' : 'Deimos : '} #{listCard.length} </span>
       </center>
       <div className={styles.BotGame} >
         {listItems}
@@ -21,3 +22,8 @@ export default function BotHand({ listCard, left }) {
     </div >
   )
 }
+
+BotHand.propTypes = {
+  listCard: PropTypes.array.isRequired,
+  left: PropTypes.bool
+};

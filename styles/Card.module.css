@@ -6,6 +6,9 @@
   padding: 5px;
   margin: 15px;
   display: inline-block;
+  animation-name: init;
+  animation-duration: 1s;
+  position: relative;
 }
 
 .CardFocus {
@@ -16,6 +19,19 @@
   padding: 5px;
   margin: 15px;
   display: inline-block;
+  animation-name: init;
+  animation-duration: 1s;
+  position: relative;
+}
+
+@keyframes init {
+  0% {
+    top: 200px;
+  }
+
+  100% {
+    top: 0px;
+  }
 }
 
 .Card:hover {
@@ -33,6 +49,13 @@
   margin: 15px;
   display: inline-block;
   background-color: rgb(44, 44, 44);
+  position: relative;
+  border: 1px solid gray;
+}
+
+.UnoCard:hover {
+  cursor: pointer;
+  top: 20px;
 }
 
 .UnoCardUnFocus {
@@ -44,10 +67,7 @@
   border: 1px solid gray;
   margin: 5px 5px -90px 5px;
   background-color: rgb(44, 44, 44);
-}
-
-.UnoCard:hover {
-  cursor: pointer;
+  
 }
 
 .CenterText {
