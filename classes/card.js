@@ -1,8 +1,8 @@
 class Card {
   constructor(color, value) {
     this.color = color;
-    this.value = value;
+    this.number = value;
   }
 }
 
-module.exports = Card;
+export default Card;

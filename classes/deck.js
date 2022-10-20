@@ -1,4 +1,4 @@
-const Card = require('./card');
+const Card = require('./card').default;
 const {
   activeValues,
   colors
@@ -34,4 +34,4 @@ class Deck {
   }
 }
 
-module.exports = Deck;
+export default Deck;

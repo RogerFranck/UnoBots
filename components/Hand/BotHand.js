@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default function BotHand({ listCard, left }) {
 
-  const CardListLimited = listCard.slice(0, 14)
+  const CardListLimited = listCard.slice(0, 7)
 
   const listItems = CardListLimited.map((e, i) =>
     <UnoCard key={i} bot left={left} index={i} />

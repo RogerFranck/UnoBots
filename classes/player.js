@@ -1,7 +1,8 @@
 
-class Player {
-  constructor () {
-    this.hand = [];
+class Bot {
+  constructor (name, hand) {
+    this.name = name;
+    this.hand = hand;
   }
 
   draw (card) {
@@ -11,6 +12,12 @@ class Player {
   play (index) {
     return this.hand.splice(index, 1)[0];
   }
+
+  show () {
+    return this.hand;
+  }
+
+  
 }
 
-module.exports = Player;
+export default Bot;

@@ -13,7 +13,7 @@ export default (state, action) => {
     case DRAW_PLAYER_STACK:
       return {
         ...state,
-        playerHand: payload.playerHandList,
+        [payload.currentPlayer]: payload.HandList,
         Stack: payload.stackList,
       };
     case PLAY_PLAYER_PLAYZONE:
@@ -30,9 +30,9 @@ export default (state, action) => {
     case GET_PLAYERS_CARD:
       return {
         ...state,
-        playerHand: payload.newPlayerHand,
-        FobosBot: payload.newFobosHand,
-        DeimosBot: payload.newDeimosHand,
+        playerHand: payload.playerHand,
+        FobosBot: payload.FobosBot,
+        DeimosBot: payload.DeimosBot,
         PlayZone: payload.firsPlayZone,
         Stack: payload.newStack,
       };

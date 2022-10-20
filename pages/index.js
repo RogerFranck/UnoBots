@@ -42,12 +42,23 @@ export default function Home() {
     }
   }, [playerHand, FobosBot, DeimosBot])
 
+  useEffect(() => {
+    if (turno == 1) {
+      //DeimosAction
+      alert('Turno de deimos')
+    }
+    if (turno == 2) {
+      //FobosAction
+      alert('Turno de fobos')
+    }
+  }, [turno])
+
 
   return (
     <div className={styles.Home} >
       {
         win.win ?
-          <div className={styles.win} >Win {win.player} </div>
+          <div className={styles.win} >Winner {win.player}! </div>
           :
           <>
             <h1 style={{ display: 'flex', justifyContent: 'space-between' }} >

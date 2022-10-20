@@ -2,7 +2,9 @@ import React, { useReducer } from 'react'
 import GameReducer from './GameReducer'
 import GameContext from './GameContext'
 import { DRAW_PLAYER_STACK, PLAY_PLAYER_PLAYZONE, GET_PLAYERS_CARD, NEXT_PLAYER } from "./types";
-import { content } from '../constants/content'
+import Deck from '../classes/deck';
+
+const players = ['playerHand', 'DeimosBot', 'FobosBot'];
 
 const GameState = ({ children }) => {
 
@@ -34,20 +36,20 @@ const GameState = ({ children }) => {
   }
 
   const setUpGame = () => {
-    const randomDek = content.sort(function () { return Math.random() - 0.5 })
-    const newPlayerHand = randomDek.slice(0, 7)
-    const newFobosHand = randomDek.slice(7, 14)
-    const newDeimosHand = randomDek.slice(14, 21)
-    const firsPlayZone = randomDek.slice(21, 22)
-    const newStack = randomDek.slice(22, randomDek.length + 1)
+    const deck = new Deck();
+    const {
+      playerHand,
+      FobosBot,
+      DeimosBot
+    } = drawHands(deck);
     dispatch({
       type: GET_PLAYERS_CARD,
       payload: {
-        newPlayerHand,
-        newFobosHand,
-        newDeimosHand,
-        firsPlayZone,
-        newStack,
+        playerHand,
+        FobosBot,
+        DeimosBot,
+        firsPlayZone: [deck.draw()],
+        newStack: deck.cards,
       }
     })
   }
@@ -55,24 +57,17 @@ const GameState = ({ children }) => {
   const DrawPlayerCard = () => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
-    let HandList = state.playerHand
-    if (state.turno == 0) {
-      HandList = state.playerHand
-    }
-    if (state.turno == 1) {
-      HandList = state.DeimosBot
-    }
-    if (state.turno == 2) {
-      HandList = state.FobosBot
-    }
-    HandList.push(cardDraw) //! Como puedo mandarlo a la mano correcta?
+
     dispatch({
       type: DRAW_PLAYER_STACK,
       payload: {
-        HandList,
+        HandList: [...state[players[state.turno]], cardDraw],
         stackList,
+        currentPlayer: players[state.turno]
       }
-    })
+    });
+
+    NextPlayer();
   }
 
   const PlayPlayerCards = (card) => {
@@ -114,3 +109,17 @@ const GameState = ({ children }) => {
 }
 
 export default GameState;
+
+const drawHands = (deck) => {
+  const hands = {
+    playerHand: [],
+    FobosBot: [],
+    DeimosBot: []
+  };
+
+  players.forEach((player) => {
+    hands[player] = [0, 1, 2, 3, 4, 5, 6].map((value) => deck.draw());
+  });
+  
+  return hands
+};
