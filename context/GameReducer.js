@@ -2,7 +2,8 @@ import {
   DRAW_PLAYER_STACK,
   PLAY_PLAYER_PLAYZONE,
   GET_PLAYERS_CARD,
-  NEXT_PLAYER
+  NEXT_PLAYER,
+  SET_SOUND
 } from "./types";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -26,6 +27,11 @@ export default (state, action) => {
       return {
         ...state,
         turno: payload.newPlayer,
+      };
+    case SET_SOUND:
+      return {
+        ...state,
+        [payload.target]: payload.sonido,
       };
     case GET_PLAYERS_CARD:
       return {

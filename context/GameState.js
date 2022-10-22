@@ -1,7 +1,13 @@
 import React, { useReducer } from 'react'
 import GameReducer from './GameReducer'
 import GameContext from './GameContext'
-import { DRAW_PLAYER_STACK, PLAY_PLAYER_PLAYZONE, GET_PLAYERS_CARD, NEXT_PLAYER } from "./types";
+import {
+  DRAW_PLAYER_STACK,
+  PLAY_PLAYER_PLAYZONE,
+  GET_PLAYERS_CARD,
+  NEXT_PLAYER,
+  SET_SOUND
+} from "./types";
 import Deck from '../classes/deck';
 
 const players = ['playerHand', 'DeimosBot', 'FobosBot'];
@@ -15,9 +21,21 @@ const GameState = ({ children }) => {
     Stack: [{ number: '0', color: 'Red' }],
     PlayZone: [{ number: '0', color: 'Red' }],
     turno: 0,
+    sonidoPop: false,
+    sonidoDraw: false,
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
+
+  const setEffectsSounds = (sonido, target) => {
+    dispatch({
+      type: SET_SOUND,
+      payload: {
+        sonido,
+        target,
+      }
+    })
+  }
 
   const NextPlayer = () => {
     const currentPlayer = state.turno
@@ -34,6 +52,7 @@ const GameState = ({ children }) => {
       }
     })
   }
+
 
   const setUpGame = () => {
     const deck = new Deck();
@@ -67,6 +86,9 @@ const GameState = ({ children }) => {
       }
     });
     NextPlayer();
+    if (state.sonidoDraw) {
+      state.sonidoDraw.play()
+    }
   }
 
   const PlayPlayerCards = (card, target) => {
@@ -84,6 +106,9 @@ const GameState = ({ children }) => {
         }
       })
       NextPlayer()
+      if (state.sonidoPop) {
+        state.sonidoPop.play()
+      }
     }
   }
 
@@ -98,6 +123,7 @@ const GameState = ({ children }) => {
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,
+      setEffectsSounds,
     }} >
       {children}
     </GameContext.Provider>

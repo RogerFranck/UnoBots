@@ -50,8 +50,8 @@ export default class Bot extends Component {
     const cardInPlayZone = this.seePlayZoneCard()
     const opcions = this.getOpcionPlayCard(cardInPlayZone)
     if (this.isOpcions(opcions)) {
-      const playCard = this.selectedCard(opcions)
-      this.playCard(playCard)
+      const betterCard = this.selectedCard(opcions)
+      this.playCard(betterCard)
     } else {
       this.draw()
     }

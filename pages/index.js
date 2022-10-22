@@ -19,7 +19,8 @@ export default function Home() {
     turno,
     PlayZoneData,
     DrawPlayerCard,
-    PlayPlayerCards
+    PlayPlayerCards,
+    setEffectsSounds
   } = useContext(GameContext)
 
   const fun = {
@@ -32,8 +33,20 @@ export default function Home() {
     player: 'Unknow'
   })
 
+  const cargarSonido = (fuente) => {
+    const sonido = document.createElement("audio");
+    sonido.src = fuente;
+    sonido.setAttribute("preload", "auto");
+    sonido.setAttribute("controls", "none");
+    sonido.style.display = "none"; // <-- oculto
+    document.body.appendChild(sonido);
+    return sonido;
+  };
+
   useEffect(() => {
     setUpGame()
+    setEffectsSounds(cargarSonido('/sound/pop.mp3'), 'sonidoPop') 
+    setEffectsSounds(cargarSonido('/sound/deslizar.mp3'), 'sonidoDraw') 
   }, [])
 
   useEffect(() => {
