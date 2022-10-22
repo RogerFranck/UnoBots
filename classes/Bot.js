@@ -24,8 +24,14 @@ export default class Bot extends Component {
     return opcions.length > 0
   }
 
+  getPreferColorBot = () => {
+    //? Funcion para realizar peticion al otro bots sobre conservar un color de carta
+  }
+
   selectedCard = (opcions) => {
     //? Dentro de sus opciones escoge la carta que mas le beneficia
+    //? Por cada una de sus opciones verifica cuantas cartas podria jugar si se conserva color o numero
+    //? Selecciona la opcion que al ser jugada le permita mas posibilidades de jugar otras cartas
     let maxPlayableCards = 0;
     let betterCard;
     opcions.forEach(element => {
