@@ -94,7 +94,7 @@ const GameState = ({ children }) => {
       FobosBot: state.FobosBot,
       DeimosBot: state.DeimosBot,
       Stack: state.Stack,
-      PlayZone: state.PlayZone,
+      PlayZoneData: state.PlayZone,
       turno: state.turno,
       setUpGame,
       DrawPlayerCard,

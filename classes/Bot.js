@@ -9,6 +9,24 @@ export default class Bot extends Component {
     }
   }
 
+  seePlayZoneCard = () => {
+    return this.props.PlayZoneData[this.props.PlayZoneData.length - 1]
+  }
+
+  getOpcionPlayCard = () => {
+    const cardInPlayZone = this.seePlayZoneCard()
+    return this.state.hand.filter((e) => e.color == cardInPlayZone.color || e.number == cardInPlayZone.number)
+  }
+
+  isPlayable = (opcions) => {
+    return opcions.length > 0
+  }
+
+  selectedCard = (opcions) => {
+    const randomNumber = Math.floor(Math.random() * opcions.length)
+    return opcions[randomNumber]
+  }
+
   draw = () => {
     this.props.fun.DrawPlayerCard()
   }
@@ -18,17 +36,17 @@ export default class Bot extends Component {
   }
 
   play = () => {
-    console.log(`Jugando ${this.state.name} `)
-    this.draw()
+    const opcions = this.getOpcionPlayCard()
+    if (this.isPlayable(opcions)) {
+      const playCard = this.selectedCard(opcions)
+      this.playCard(playCard)
+    } else {
+      this.draw()
+    }
   }
 
   show = () => {
     return this.hand;
   }
 
-  render() {
-    return (
-      <></>
-    )
-  }
 }

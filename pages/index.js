@@ -17,6 +17,7 @@ export default function Home() {
     DeimosBot,
     setUpGame,
     turno,
+    PlayZoneData,
     DrawPlayerCard,
     PlayPlayerCards
   } = useContext(GameContext)
@@ -57,8 +58,8 @@ export default function Home() {
   }, [playerHand, FobosBot, DeimosBot])
 
   useEffect(() => {
-    const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun })
-    const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun })
+    const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
+    const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
     if (turno == 1) {
       Deimos.play()
     }

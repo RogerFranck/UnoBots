@@ -5,14 +5,14 @@ import NumberCard from '../Cards/NumberCard'
 
 export default function PlayZone() {
 
-  const { PlayZone } = useContext(GameContext)
+  const { PlayZoneData } = useContext(GameContext)
 
   return (
     <div>
       <NumberCard
-        key={PlayZone[PlayZone.length - 1].number + 1}
-        Number={PlayZone[PlayZone.length - 1].number}
-        Color={PlayZone[PlayZone.length - 1].color}
+        key={PlayZoneData[PlayZoneData.length - 1].number + 1}
+        Number={PlayZoneData[PlayZoneData.length - 1].number}
+        Color={PlayZoneData[PlayZoneData.length - 1].color}
       />
     </div>
   )
