@@ -10,7 +10,7 @@ export default function PlayZone() {
   return (
     <div>
       <NumberCard
-        key={PlayZoneData[PlayZoneData.length - 1].number + 1}
+        key={PlayZoneData[PlayZoneData.length - 1].number + Date.now()}
         Number={PlayZoneData[PlayZoneData.length - 1].number}
         Color={PlayZoneData[PlayZoneData.length - 1].color}
       />

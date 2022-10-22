@@ -66,7 +66,6 @@ const GameState = ({ children }) => {
         currentPlayer: players[state.turno]
       }
     });
-
     NextPlayer();
   }
 

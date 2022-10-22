@@ -60,12 +60,15 @@ export default function Home() {
   useEffect(() => {
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
-    if (turno == 1) {
-      Deimos.play()
-    }
-    if (turno == 2) {
-      Fobos.play()
-    }
+    const timer = setTimeout(() => {
+      if (turno == 1) {
+        Deimos.play()
+      }
+      if (turno == 2) {
+        Fobos.play()
+      }
+    }, 2000);
+    return () => clearTimeout(timer);
   }, [turno])
 
 

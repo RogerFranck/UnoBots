@@ -53,6 +53,19 @@
   border: 1px solid gray;
 }
 
+.UnoCardDesFocus {
+  width: 125px;
+  height: 175px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 15px;
+  display: inline-block;
+  background-color: rgb(44, 44, 44);
+  position: relative;
+  border: 1px solid gray;
+}
+
 .UnoCard:hover {
   cursor: pointer;
   top: 20px;
@@ -67,7 +80,6 @@
   border: 1px solid gray;
   margin: 5px 5px -90px 5px;
   background-color: rgb(44, 44, 44);
-  
 }
 
 .CenterText {

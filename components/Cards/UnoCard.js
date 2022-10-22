@@ -3,11 +3,11 @@ import styles from '../../styles/Card.module.css'
 import Image from 'next/image'
 import PropTypes from 'prop-types';
 
-export default function UnoCard({ onClick, bot, left, index}) {
+export default function UnoCard({ onClick, bot, left, index, focus }) {
 
   return (
     <div
-      className={bot ? styles.UnoCardUnFocus : styles.UnoCard}
+      className={bot ? styles.UnoCardUnFocus : focus ? styles.UnoCard :styles.UnoCardDesFocus}
       onClick={onClick}
       style={{ zIndex: index }}
     >

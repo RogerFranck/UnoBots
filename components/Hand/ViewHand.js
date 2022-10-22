@@ -9,7 +9,7 @@ export default function ViewHand({ listCard }) {
   const { PlayPlayerCards, turno } = useContext(GameContext)
 
   const listItems = listCard.map((e, i) =>
-    <NumberCard key={i} Number={e.number} Color={e.color} turno={turno} Focus onClick={() => PlayPlayerCards(e, 'playerHand')} />
+    <NumberCard key={i} Number={e.number} Color={e.color} turno={turno} Focus={turno == 0} onClick={() => PlayPlayerCards(e, 'playerHand')} />
   );
 
   return (
