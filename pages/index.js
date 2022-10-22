@@ -93,7 +93,7 @@ export default function Home() {
           :
           <>
             <h1 style={{ display: 'flex', justifyContent: 'space-between' }} >
-              <div>Arttis: UnoBots</div>  <div>Turn of {turns[turno]}</div> </h1>
+              <div>Arttis: GameBots</div>  <div>Turn of {turns[turno]}</div> </h1>
             <div className={styles.play} >
               <BotHand listCard={FobosBot} left />
               <div className={styles.desks} >
