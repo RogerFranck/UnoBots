@@ -13,6 +13,10 @@ export default class Bot extends Component {
     this.props.fun.DrawPlayerCard()
   }
 
+  playCard = (card) => {
+    this.props.fun.PlayPlayerCards(card, this.state.name)
+  }
+
   play = () => {
     console.log(`Jugando ${this.state.name} `)
     this.draw()

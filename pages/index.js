@@ -11,10 +11,19 @@ import Bot from "../classes/Bot"
 
 export default function Home() {
 
-  const { playerHand, FobosBot, DeimosBot, setUpGame, turno, DrawPlayerCard } = useContext(GameContext)
+  const {
+    playerHand,
+    FobosBot,
+    DeimosBot,
+    setUpGame,
+    turno,
+    DrawPlayerCard,
+    PlayPlayerCards
+  } = useContext(GameContext)
 
   const fun = {
     DrawPlayerCard,
+    PlayPlayerCards
   }
 
   const [win, setwin] = useState({
@@ -48,8 +57,8 @@ export default function Home() {
   }, [playerHand, FobosBot, DeimosBot])
 
   useEffect(() => {
-    const Deimos = new Bot({ name: 'Deimos', hand: DeimosBot, fun })
-    const Fobos = new Bot({ name: 'Fobos', hand: FobosBot, fun })
+    const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun })
+    const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun })
     if (turno == 1) {
       Deimos.play()
     }
