@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
 import BotHand from "../components/Hand/BotHand"
 import ViewHand from "../components/Hand/ViewHand"
@@ -6,10 +7,15 @@ import Stack from "../components/Stack/Stack"
 import GameContext from "../context/GameContext"
 import styles from '../styles/Home.module.css'
 import { turns } from '../constants/constants'
+import Bot from "../classes/Bot"
 
 export default function Home() {
 
-  const { playerHand, FobosBot, DeimosBot, setUpGame, turno } = useContext(GameContext)
+  const { playerHand, FobosBot, DeimosBot, setUpGame, turno, DrawPlayerCard } = useContext(GameContext)
+
+  const fun = {
+    DrawPlayerCard,
+  }
 
   const [win, setwin] = useState({
     win: false,
@@ -18,7 +24,6 @@ export default function Home() {
 
   useEffect(() => {
     setUpGame()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -43,13 +48,13 @@ export default function Home() {
   }, [playerHand, FobosBot, DeimosBot])
 
   useEffect(() => {
+    const Deimos = new Bot({ name: 'Deimos', hand: DeimosBot, fun })
+    const Fobos = new Bot({ name: 'Fobos', hand: FobosBot, fun })
     if (turno == 1) {
-      //DeimosAction
-      alert('Turno de deimos')
+      Deimos.play()
     }
     if (turno == 2) {
-      //FobosAction
-      alert('Turno de fobos')
+      Fobos.play()
     }
   }, [turno])
 
