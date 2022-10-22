@@ -9,16 +9,16 @@ const colorCode = {
   Especial: 'Black'
 }
 
-export default function NumberCard({ Number, Color, Focus, onClick }) {
+export default function NumberCard({ Number, Color, Focus, onClick, turno }) {
   return (
     <div
       className={Focus ? styles.Card : styles.CardFocus}
       style={{ backgroundColor: colorCode[Color] }}
-      onClick={onClick}
+      onClick={turno == 0 ? onClick : () => console.log('No')}
     >
       <div className={styles.miniTextLeft}>{Number}</div>
       <div className={styles.CenterText} >{Number}</div>
       <div className={styles.miniTextRight} >{Number}</div>
-    </div>
+    </div >
   )
 }

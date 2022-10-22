@@ -70,19 +70,17 @@ const GameState = ({ children }) => {
     NextPlayer();
   }
 
-  const PlayPlayerCards = (card) => {
-    if (state.turno != 0) {
-      return;
-    }
+  const PlayPlayerCards = (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
       const newPlace = state.PlayZone
-      const newPlayerHand = state.playerHand.filter((e) => e != card)
+      const newPlayerHand = state[target].filter((e) => e != card)
       newPlace.push(card)
       dispatch({
         type: PLAY_PLAYER_PLAYZONE,
         payload: {
           newPlayerHand,
+          target,
           newPlace,
         }
       })
@@ -120,6 +118,6 @@ const drawHands = (deck) => {
   players.forEach((player) => {
     hands[player] = [0, 1, 2, 3, 4, 5, 6].map((value) => deck.draw());
   });
-  
+
   return hands
 };

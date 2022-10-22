@@ -19,7 +19,7 @@ export default (state, action) => {
     case PLAY_PLAYER_PLAYZONE:
       return {
         ...state,
-        playerHand: payload.newPlayerHand,
+        [payload.target]: payload.newPlayerHand,
         PlayZone: payload.newPlace,
       };
     case NEXT_PLAYER:
