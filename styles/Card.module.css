@@ -132,3 +132,9 @@
   align-items: center;
   height: 122px;
 }
+
+@media (max-width: 600px) {
+  .UnoCardUnFocus {
+    display: none;
+  }
+}
