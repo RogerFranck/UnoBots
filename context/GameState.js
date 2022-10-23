@@ -23,6 +23,7 @@ const GameState = ({ children }) => {
     turno: 0,
     sonidoPop: false,
     sonidoDraw: false,
+    players: ['playerHand', 'DeimosBot', 'FobosBot'],
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
@@ -37,7 +38,7 @@ const GameState = ({ children }) => {
     })
   }
 
-  const NextPlayer = () => {
+  const NextPlayer = (skip) => {
     const currentPlayer = state.turno
     let newPlayer = currentPlayer
     if (currentPlayer == 2) {
@@ -48,9 +49,29 @@ const GameState = ({ children }) => {
     dispatch({
       type: NEXT_PLAYER,
       payload: {
-        newPlayer,
+        newPlayer: skip ? skip : newPlayer,
       }
     })
+  }
+
+  const skipPlayCard = () => {
+    const currentPlayer = state.turno
+    let newPlayer = currentPlayer
+    if (currentPlayer == 0) {
+      newPlayer = 2
+    }
+    if (currentPlayer == 1) {
+      newPlayer = 0
+    }
+    if (currentPlayer == 2) {
+      newPlayer = 1
+    }
+    return newPlayer
+  }
+
+  const reversePlayCard = () => { //! Terminar reverseplaycard
+    const sequence = state.players
+    console.log(sequence.reverse(), sequence)
   }
 
 
@@ -67,7 +88,7 @@ const GameState = ({ children }) => {
         playerHand,
         FobosBot,
         DeimosBot,
-        firsPlayZone: [deck.draw()],
+        firsPlayZone: [deck.firstCardPlayZone()],
         newStack: deck.cards,
       }
     })
@@ -94,9 +115,24 @@ const GameState = ({ children }) => {
   const PlayPlayerCards = (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
+
+      let skip = false;
+
+      switch (card.number) {
+        case 'a':
+          skip = skipPlayCard()
+          break;
+        case 'b':
+          reversePlayCard()
+          break;
+        default:
+          break;
+      }
+
       const newPlace = state.PlayZone
       const newPlayerHand = state[target].filter((e) => e != card)
       newPlace.push(card)
+
       dispatch({
         type: PLAY_PLAYER_PLAYZONE,
         payload: {
@@ -105,7 +141,7 @@ const GameState = ({ children }) => {
           newPlace,
         }
       })
-      NextPlayer()
+      NextPlayer(skip)
       if (state.sonidoPop) {
         state.sonidoPop.play()
       }

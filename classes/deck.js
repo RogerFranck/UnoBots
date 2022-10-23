@@ -1,7 +1,8 @@
 const Card = require('./card').default;
 const {
   activeValues,
-  colors
+  colors,
+  especialCardsText
 } = require('../constants/constants');
 
 const generateCards = () => {
@@ -13,23 +14,36 @@ const generateCards = () => {
 }
 
 class Deck {
-  constructor () {
+  constructor() {
     this.cards = generateCards();
   }
 
-  draw (played = null) {
+  firstCardPlayZone() {
+    let first = this.cards[Math.floor(Math.random() * this.cards.length)];
+    while (Object.keys(especialCardsText).includes(first.number)) {
+      first = this.cards[Math.floor(Math.random() * this.cards.length)];
+    }
+    const index = this.cards.indexOf(first);
+    if (index > -1) {
+      this.cards.splice(index, 1);
+    }
+    //! Creo que no borra la carta tomada 
+    //! console.log("Esta", this.cards.includes(first)) 
+    return first
+  }
+
+  draw(played = null) {
     if (played) {
       this.reload(played);
     }
-    console.log(this.cards)
     return this.cards.pop();
   }
 
-  shuffle () {
+  shuffle() {
     this.cards = this.cards.sort(() => Math.random() - 0.5);
   }
 
-  reload (played) {
+  reload(played) {
     this.cards = played.sort(() => Math.random() - 0.5);
   }
 }
