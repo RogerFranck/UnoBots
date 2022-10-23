@@ -6,11 +6,11 @@ import NumberCard from '../Cards/NumberCard'
 export default function PlayZone() {
 
   const { PlayZoneData } = useContext(GameContext)
-
+  
   return (
     <div>
       <NumberCard
-        key={PlayZoneData[PlayZoneData.length - 1].number + Date.now()}
+        key={PlayZoneData[PlayZoneData.length - 1].id}
         Number={PlayZoneData[PlayZoneData.length - 1].number}
         Color={PlayZoneData[PlayZoneData.length - 1].color}
       />

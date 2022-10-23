@@ -1,5 +1,8 @@
 import React from 'react'
 import styles from '../../styles/Card.module.css'
+import Image from 'next/image'
+import { especialCardsText } from '../../constants/constants'
+import EspecialCard from './EspecialCard'
 
 const colorCode = {
   Red: '#D93D26',
@@ -9,16 +12,31 @@ const colorCode = {
   Especial: 'Black'
 }
 
+const noColorsEspecial = ['d', 'e']
+
 export default function NumberCard({ Number, Color, Focus, onClick, turno }) {
+
   return (
     <div
       className={Focus ? styles.Card : styles.CardFocus}
-      style={{ backgroundColor: colorCode[Color] }}
+      style={noColorsEspecial.includes(Number) ?
+        { backgroundColor: colorCode['Especial'], color: colorCode['Especial'] } :
+        { backgroundColor: colorCode[Color] }}
       onClick={turno == 0 ? onClick : () => console.log('No')}
     >
-      <div className={styles.miniTextLeft}>{Number}</div>
-      <div className={styles.CenterText} >{Number}</div>
-      <div className={styles.miniTextRight} >{Number}</div>
+      {
+        Object.keys(especialCardsText).includes(Number) ?
+          <>
+            <EspecialCard Number={Number} Color={Color} />
+          </>
+          :
+          <>
+            <div className={styles.miniTextLeft}>{Number}</div>
+            <div className={styles.CenterText} >{Number}</div>
+            <div className={styles.miniTextRight} >{Number}</div>
+          </>
+      }
+
     </div >
   )
 }

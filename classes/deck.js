@@ -21,7 +21,7 @@ class Deck {
     if (played) {
       this.reload(played);
     }
-
+    console.log(this.cards)
     return this.cards.pop();
   }
 

@@ -48,7 +48,7 @@
   padding: 5px;
   margin: 15px;
   display: inline-block;
-  background-color: rgb(44, 44, 44);
+  background-color: black;
   position: relative;
   border: 1px solid gray;
 }
@@ -61,7 +61,7 @@
   padding: 5px;
   margin: 15px;
   display: inline-block;
-  background-color: rgb(44, 44, 44);
+  background-color: black;
   position: relative;
   border: 1px solid gray;
 }
@@ -79,7 +79,7 @@
   padding: 5px;
   border: 1px solid gray;
   margin: 5px 5px -90px 5px;
-  background-color: rgb(44, 44, 44);
+  background-color: black;
 }
 
 .CenterText {
