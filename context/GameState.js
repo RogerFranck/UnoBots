@@ -42,7 +42,7 @@ const GameState = ({ children }) => {
   const NextPlayer = (skip) => {
     const currentPlayer = state.turno
     let newPlayer = currentPlayer
-    if (currentPlayer == 2) {
+    if (currentPlayer >= 2) {
       newPlayer = 0
     } else {
       newPlayer = currentPlayer + 1
@@ -55,7 +55,7 @@ const GameState = ({ children }) => {
     })
   }
 
-  const skipPlayCard = () => {
+  const skipPlayCard = () => { //? buegueado ?
     const currentPlayer = state.turno
     let newPlayer = currentPlayer
     if (currentPlayer == 0) {
@@ -70,12 +70,35 @@ const GameState = ({ children }) => {
     return newPlayer
   }
 
-  const reversePlayCard = () => { //! Bugueado 
+  const reversePlayCard = () => { //! Bugueado
+    //* funciona bien cuando lo juega un bot
     const sequence = state.players
     dispatch({
       type: NEW_SEQUENCE,
       payload: {
         newSequence: sequence.reverse()
+      }
+    });
+  }
+
+  const drawTwoPlayCard = () => { //* Aun no son stakeables
+    const stackList = state.Stack
+    const cardDraw = stackList.pop()
+    const cardDraw2 = stackList.pop()
+    const currentPlayer = state.turno
+    let newPlayer = currentPlayer
+    if (currentPlayer == 2) {
+      newPlayer = 0
+    } else {
+      newPlayer = currentPlayer + 1
+    }
+    const handList = [...state[state.players[newPlayer]], cardDraw, cardDraw2]
+    dispatch({
+      type: DRAW_PLAYER_STACK,
+      payload: {
+        HandList: handList,
+        stackList,
+        currentPlayer: state.players[newPlayer]
       }
     });
   }
@@ -103,7 +126,6 @@ const GameState = ({ children }) => {
   const DrawPlayerCard = () => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
-
     dispatch({
       type: DRAW_PLAYER_STACK,
       payload: {
@@ -118,7 +140,7 @@ const GameState = ({ children }) => {
     }
   }
 
-  const PlayPlayerCards = (card, target) => {
+  const PlayPlayerCards = async (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
 
@@ -129,7 +151,11 @@ const GameState = ({ children }) => {
           skip = skipPlayCard()
           break;
         case 'b':
-          reversePlayCard()
+          await reversePlayCard()
+          break;
+        case 'c':
+          await drawTwoPlayCard()
+          skip = skipPlayCard()
           break;
         default:
           break;
@@ -148,7 +174,7 @@ const GameState = ({ children }) => {
         }
       })
       NextPlayer(skip)
-      if (state.sonidoPop) {
+      if (state.sonidoPop) { //! Bugueado
         state.sonidoPop.play()
       }
     }

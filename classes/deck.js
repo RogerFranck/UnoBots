@@ -7,7 +7,7 @@ const {
 
 const generateCards = () => {
   const half = colors.reduce((acc, color) => {
-    return [...acc, ...activeValues.map((value) => new Card(color, value))];
+    return [...acc, ...activeValues.map((value, i) => new Card(color, value, String(`${value}-${color}-${i}`) ))];
   }, []);
 
   return [...half, ...half].sort(() => Math.random() - 0.5);

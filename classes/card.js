@@ -1,6 +1,6 @@
 class Card {
-  constructor(color, value) {
-    this.id = String(`${color}-${value}`)
+  constructor(color, value, id) {
+    this.id = id;
     this.color = color;
     this.number = value;
   }
