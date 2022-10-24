@@ -41,7 +41,6 @@ const GameState = ({ children }) => {
   }
 
   const NextPlayer = (skip) => {
-    console.log({ directionInFunction: state.direction })
     let newPlayer = state.turno + state.direction;
     if (newPlayer > 2) {
       newPlayer = 0
@@ -78,6 +77,7 @@ const GameState = ({ children }) => {
     //* funciona bien cuando lo juega un bot
     const newDirection = state.direction * (-1);
     let newPlayer = state.turno + newDirection;
+    
     if (newPlayer > 2) {
       newPlayer = 0
     } else if (newPlayer < 0) {
@@ -159,13 +159,15 @@ const GameState = ({ children }) => {
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
 
       let skip = false;
+      let alreadyExecuted = false;
 
       switch (card.number) {
         case 'a':
           skip = skipPlayCard()
           break;
         case 'b':
-          reversePlayCard()
+          alreadyExecuted = true;
+          reversePlayCard();
           break;
         case 'c':
           drawTwoPlayCard()
@@ -187,7 +189,10 @@ const GameState = ({ children }) => {
           newPlace,
         }
       })
-      NextPlayer(skip)
+      if (!alreadyExecuted) {
+        NextPlayer(skip)
+      }
+
       if (state.sonidoPop) { //! Bugueado
         state.sonidoPop.play()
       }
