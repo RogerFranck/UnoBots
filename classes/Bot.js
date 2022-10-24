@@ -64,8 +64,10 @@ export default class Bot extends Component {
     if (this.isOpcions(opcions)) {
       const betterCard = this.selectedCard(opcions)
       this.playCard(betterCard)
+      console.log(`${this.state.name} play ${betterCard.number} - ${betterCard.color}`)
     } else {
       this.draw()
+      console.log(`${this.state.name} draw card`)
     }
   }
 

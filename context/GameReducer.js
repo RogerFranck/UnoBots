@@ -3,7 +3,8 @@ import {
   PLAY_PLAYER_PLAYZONE,
   GET_PLAYERS_CARD,
   NEXT_PLAYER,
-  SET_SOUND
+  SET_SOUND,
+  NEW_SEQUENCE
 } from "./types";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -22,6 +23,11 @@ export default (state, action) => {
         ...state,
         [payload.target]: payload.newPlayerHand,
         PlayZone: payload.newPlace,
+      };
+    case NEW_SEQUENCE:
+      return {
+        ...state,
+        players: payload.newSequence,
       };
     case NEXT_PLAYER:
       return {
