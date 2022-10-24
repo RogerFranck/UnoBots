@@ -6,7 +6,8 @@ import {
   PLAY_PLAYER_PLAYZONE,
   GET_PLAYERS_CARD,
   NEXT_PLAYER,
-  SET_SOUND
+  SET_SOUND,
+  NEW_SEQUENCE
 } from "./types";
 import Deck from '../classes/deck';
 
@@ -69,9 +70,14 @@ const GameState = ({ children }) => {
     return newPlayer
   }
 
-  const reversePlayCard = () => { //! Terminar reverseplaycard
+  const reversePlayCard = () => { //! Bugueado 
     const sequence = state.players
-    console.log(sequence.reverse(), sequence)
+    dispatch({
+      type: NEW_SEQUENCE,
+      payload: {
+        newSequence: sequence.reverse()
+      }
+    });
   }
 
 
@@ -101,9 +107,9 @@ const GameState = ({ children }) => {
     dispatch({
       type: DRAW_PLAYER_STACK,
       payload: {
-        HandList: [...state[players[state.turno]], cardDraw],
+        HandList: [...state[state.players[state.turno]], cardDraw],
         stackList,
-        currentPlayer: players[state.turno]
+        currentPlayer: state.players[state.turno]
       }
     });
     NextPlayer();
@@ -156,6 +162,7 @@ const GameState = ({ children }) => {
       Stack: state.Stack,
       PlayZoneData: state.PlayZone,
       turno: state.turno,
+      players: state.players,
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,

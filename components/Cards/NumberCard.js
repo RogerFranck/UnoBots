@@ -14,7 +14,7 @@ const colorCode = {
 
 const noColorsEspecial = ['d', 'e']
 
-export default function NumberCard({ Number, Color, Focus, onClick, turno }) {
+export default function NumberCard({ Number, Color, Focus, onClick, turno, players }) {
 
   return (
     <div
@@ -22,7 +22,7 @@ export default function NumberCard({ Number, Color, Focus, onClick, turno }) {
       style={noColorsEspecial.includes(Number) ?
         { backgroundColor: colorCode['Especial'], color: colorCode['Especial'] } :
         { backgroundColor: colorCode[Color] }}
-      onClick={turno == 0 ? onClick : () => console.log('No')}
+      onClick={ players && players[turno] == 'playerHand' ? onClick : () => console.log('No')}
     >
       {
         Object.keys(especialCardsText).includes(Number) ?
