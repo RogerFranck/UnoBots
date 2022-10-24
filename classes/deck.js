@@ -2,7 +2,8 @@ const Card = require('./card').default;
 const {
   activeValues,
   colors,
-  especialCardsText
+  especialCardsText,
+  wildcards
 } = require('../constants/constants');
 
 const generateCards = () => {
@@ -10,6 +11,9 @@ const generateCards = () => {
     return [...acc, ...activeValues.map((value, i) => new Card(color, value, String(`${value}-${color}-${i}`) ))];
   }, []);
 
+  const special = wildcards.map((card, i) => new Card('Especial', card, `${card}-Especial-${i}`));
+
+  // return [...half, ...half, ...special].sort(() => Math.random() - 0.5);
   return [...half, ...half].sort(() => Math.random() - 0.5);
 }
 

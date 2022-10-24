@@ -25,6 +25,7 @@ const GameState = ({ children }) => {
     sonidoPop: false,
     sonidoDraw: false,
     players: ['playerHand', 'DeimosBot', 'FobosBot'],
+    direction: 1
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
@@ -40,13 +41,14 @@ const GameState = ({ children }) => {
   }
 
   const NextPlayer = (skip) => {
-    const currentPlayer = state.turno
-    let newPlayer = currentPlayer
-    if (currentPlayer >= 2) {
+    console.log({ directionInFunction: state.direction })
+    let newPlayer = state.turno + state.direction;
+    if (newPlayer > 2) {
       newPlayer = 0
-    } else {
-      newPlayer = currentPlayer + 1
+    } else if (newPlayer < 0) {
+      newPlayer = 2;
     }
+
     dispatch({
       type: NEXT_PLAYER,
       payload: {
@@ -56,32 +58,42 @@ const GameState = ({ children }) => {
   }
 
   const skipPlayCard = () => { //? buegueado ?
-    const currentPlayer = state.turno
-    let newPlayer = currentPlayer
-    if (currentPlayer == 0) {
-      newPlayer = 2
+    let newPlayer = state.turno;
+    const direction = 1;
+    
+    for (let i = 0; i < 2; i++) {
+      newPlayer += direction;
+
+      if (newPlayer > 2) {
+        newPlayer = 0;
+      } else if (newPlayer < 0) {
+        newPlayer = 2;
+      }
     }
-    if (currentPlayer == 1) {
-      newPlayer = 0
-    }
-    if (currentPlayer == 2) {
-      newPlayer = 1
-    }
-    return newPlayer
+    
+    return newPlayer;
   }
 
   const reversePlayCard = () => { //! Bugueado
     //* funciona bien cuando lo juega un bot
-    const sequence = state.players
+    const newDirection = state.direction * (-1);
+    let newPlayer = state.turno + newDirection;
+    if (newPlayer > 2) {
+      newPlayer = 0
+    } else if (newPlayer < 0) {
+      newPlayer = 2;
+    }
+
     dispatch({
       type: NEW_SEQUENCE,
       payload: {
-        newSequence: sequence.reverse()
+        direction: newDirection,
+        newPlayer: newPlayer
       }
     });
   }
 
-  const drawTwoPlayCard = () => { //* Aun no son stakeables
+  const drawTwoPlayCard = (skip) => { //* Aun no son stakeables
     const stackList = state.Stack
     const cardDraw = stackList.pop()
     const cardDraw2 = stackList.pop()
@@ -101,6 +113,8 @@ const GameState = ({ children }) => {
         currentPlayer: state.players[newPlayer]
       }
     });
+
+    NextPlayer(skip);
   }
 
 
@@ -140,7 +154,7 @@ const GameState = ({ children }) => {
     }
   }
 
-  const PlayPlayerCards = async (card, target) => {
+  const PlayPlayerCards = (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
 
@@ -151,10 +165,10 @@ const GameState = ({ children }) => {
           skip = skipPlayCard()
           break;
         case 'b':
-          await reversePlayCard()
+          reversePlayCard()
           break;
         case 'c':
-          await drawTwoPlayCard()
+          drawTwoPlayCard()
           skip = skipPlayCard()
           break;
         default:

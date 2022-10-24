@@ -7,6 +7,16 @@ module.exports = {
     b: 'reverse',
     c: 'draw2',
     d: 'draw4',
-    e: 'wild',
-  }
+    e: 'wild'
+  },
+  wildcards: [
+    'd',
+    'd',
+    'd',
+    'd',
+    'e',
+    'e',
+    'e',
+    'e',
+  ]
 };

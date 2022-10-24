@@ -27,7 +27,8 @@ export default (state, action) => {
     case NEW_SEQUENCE:
       return {
         ...state,
-        players: payload.newSequence,
+        direction: payload.direction,
+        newPlayer: payload.newPlayer,
       };
     case NEXT_PLAYER:
       return {
