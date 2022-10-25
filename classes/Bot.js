@@ -24,8 +24,14 @@ export default class Bot extends Component {
     return opcions.length > 0
   }
 
-  getPreferColorBot = () => {
-    //? Funcion para realizar peticion al otro bots sobre conservar un color de carta
+  sendMessage = () => {
+    //? Funcion para enviar informacion al otro robot
+    //? Ejamplo: "Yo tengo muchas [rojas], si puedes continua con el color [rojo]"
+  }
+
+  getMessage = () => {
+    //? Funcion para obtener información del otro robot
+    //? Puedo resolver su peticion ? lo hago : continuo normal
   }
 
   selectedCard = (opcions) => {
@@ -58,8 +64,10 @@ export default class Bot extends Component {
     if (this.isOpcions(opcions)) {
       const betterCard = this.selectedCard(opcions)
       this.playCard(betterCard)
+      console.log(`${this.state.name} play ${betterCard.number} - ${betterCard.color}`)
     } else {
       this.draw()
+      console.log(`${this.state.name} draw card`)
     }
   }
 

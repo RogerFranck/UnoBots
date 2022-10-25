@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
+    "cypress": "cypress open",
     "lint": "next lint"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "cypress": "^10.10.0",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1"
   }

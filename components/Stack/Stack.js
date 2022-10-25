@@ -4,10 +4,10 @@ import UnoCard from '../Cards/UnoCard'
 
 export default function Stack() {
 
-  const { DrawPlayerCard, Stack, turno } = useContext(GameContext)
+  const { DrawPlayerCard, Stack, turno, players } = useContext(GameContext)
 
   const DrawCard = () => {
-    if (turno == 0) {
+    if (players[turno] == 'playerHand') {
       DrawPlayerCard()
     }
   }
@@ -17,7 +17,7 @@ export default function Stack() {
       {
         Stack.length ?
           <>
-            <UnoCard onClick={DrawCard} focus={turno == 0} />
+            <UnoCard onClick={DrawCard} focus={players[turno] == 'playerHand'} />
           </>
           :
           <div />

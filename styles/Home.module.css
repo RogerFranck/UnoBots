@@ -18,6 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .win {
@@ -27,4 +28,10 @@
   justify-content: center;
   align-items: center;
   font-size: 80px;
+}
+
+@media (max-width: 600px) {
+  .play {
+    flex-direction: column;
+  }
 }

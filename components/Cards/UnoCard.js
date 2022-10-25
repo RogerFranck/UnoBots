@@ -3,6 +3,7 @@ import styles from '../../styles/Card.module.css'
 import Image from 'next/image'
 import PropTypes from 'prop-types';
 
+
 export default function UnoCard({ onClick, bot, left, index, focus }) {
 
   return (

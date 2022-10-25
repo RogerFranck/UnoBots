@@ -3,3 +3,4 @@ export const PLAY_PLAYER_PLAYZONE = 'PLAY_PLAYER_PLAYZONE';
 export const GET_PLAYERS_CARD = 'GET_PLAYERS_CARD';
 export const NEXT_PLAYER = 'NEXT_PLAYER';
 export const SET_SOUND = 'SET_SOUND';
+export const NEW_SEQUENCE = 'NEW_SEQUENCE';

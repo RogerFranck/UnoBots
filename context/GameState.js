@@ -6,7 +6,8 @@ import {
   PLAY_PLAYER_PLAYZONE,
   GET_PLAYERS_CARD,
   NEXT_PLAYER,
-  SET_SOUND
+  SET_SOUND,
+  NEW_SEQUENCE
 } from "./types";
 import Deck from '../classes/deck';
 
@@ -23,6 +24,8 @@ const GameState = ({ children }) => {
     turno: 0,
     sonidoPop: false,
     sonidoDraw: false,
+    players: ['playerHand', 'DeimosBot', 'FobosBot'],
+    direction: 1
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
@@ -37,7 +40,60 @@ const GameState = ({ children }) => {
     })
   }
 
-  const NextPlayer = () => {
+  const NextPlayer = (skip) => {
+    let newPlayer = state.turno + state.direction;
+    if (newPlayer > 2) {
+      newPlayer = 0
+    } else if (newPlayer < 0) {
+      newPlayer = 2;
+    }
+
+    dispatch({
+      type: NEXT_PLAYER,
+      payload: {
+        newPlayer: skip ? skip : newPlayer,
+      }
+    })
+  }
+
+  const skipPlayCard = () => {
+    let newPlayer = state.turno;
+    for (let i = 0; i < 2; i++) {
+      newPlayer += state.direction;
+
+      if (newPlayer > 2) {
+        newPlayer = 0;
+      } else if (newPlayer < 0) {
+        newPlayer = 2;
+      }
+    }
+    
+    return newPlayer;
+  }
+
+  const reversePlayCard = () => { //? Bugueado
+    const newDirection = state.direction * (-1);
+    let newPlayer = state.turno + newDirection;
+    
+    if (newPlayer > 2) {
+      newPlayer = 0
+    } else if (newPlayer < 0) {
+      newPlayer = 2;
+    }
+    console.log(newPlayer)
+    dispatch({
+      type: NEW_SEQUENCE,
+      payload: {
+        direction: newDirection,
+        newPlayer,
+      }
+    });
+  }
+
+  const drawTwoPlayCard = (skip) => { //* Aun no son stakeables
+    const stackList = state.Stack
+    const cardDraw = stackList.pop()
+    const cardDraw2 = stackList.pop()
     const currentPlayer = state.turno
     let newPlayer = currentPlayer
     if (currentPlayer == 2) {
@@ -45,12 +101,17 @@ const GameState = ({ children }) => {
     } else {
       newPlayer = currentPlayer + 1
     }
+    const handList = [...state[state.players[newPlayer]], cardDraw, cardDraw2]
     dispatch({
-      type: NEXT_PLAYER,
+      type: DRAW_PLAYER_STACK,
       payload: {
-        newPlayer,
+        HandList: handList,
+        stackList,
+        currentPlayer: state.players[newPlayer]
       }
-    })
+    });
+
+    NextPlayer(skip);
   }
 
 
@@ -67,7 +128,7 @@ const GameState = ({ children }) => {
         playerHand,
         FobosBot,
         DeimosBot,
-        firsPlayZone: [deck.draw()],
+        firsPlayZone: [deck.firstCardPlayZone()],
         newStack: deck.cards,
       }
     })
@@ -76,13 +137,12 @@ const GameState = ({ children }) => {
   const DrawPlayerCard = () => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
-
     dispatch({
       type: DRAW_PLAYER_STACK,
       payload: {
-        HandList: [...state[players[state.turno]], cardDraw],
+        HandList: [...state[state.players[state.turno]], cardDraw],
         stackList,
-        currentPlayer: players[state.turno]
+        currentPlayer: state.players[state.turno]
       }
     });
     NextPlayer();
@@ -94,9 +154,30 @@ const GameState = ({ children }) => {
   const PlayPlayerCards = (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
+
+      let skip = false;
+      let alreadyExecuted = false;
+
+      switch (card.number) {
+        case 'a':
+          skip = skipPlayCard()
+          break;
+        case 'b':
+          alreadyExecuted = true;
+          reversePlayCard();
+          break;
+        case 'c':
+          drawTwoPlayCard()
+          skip = skipPlayCard()
+          break;
+        default:
+          break;
+      }
+
       const newPlace = state.PlayZone
       const newPlayerHand = state[target].filter((e) => e != card)
       newPlace.push(card)
+
       dispatch({
         type: PLAY_PLAYER_PLAYZONE,
         payload: {
@@ -105,8 +186,11 @@ const GameState = ({ children }) => {
           newPlace,
         }
       })
-      NextPlayer()
-      if (state.sonidoPop) {
+      if (!alreadyExecuted) {
+        NextPlayer(skip)
+      }
+
+      if (state.sonidoPop) { //! Bugueado
         state.sonidoPop.play()
       }
     }
@@ -120,6 +204,7 @@ const GameState = ({ children }) => {
       Stack: state.Stack,
       PlayZoneData: state.PlayZone,
       turno: state.turno,
+      players: state.players,
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,

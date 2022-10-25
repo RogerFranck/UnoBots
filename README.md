@@ -13,8 +13,9 @@ Agentes jugando una parida de Uno con humanos
 ## Iniciar proyecto
 - git clone git@github.com:RogerFranck/UnoBots.git
 - cd UnoBots
+- git checkout test (main es para servidor)
 - npm i
-- Desarrollo: npm run dev || Producción: npm run build && npm run start
+- npm run build && npm run start
 - En el navegador poner 'http://localhost:3000/'
 - Ganar la partida!!
 

@@ -20,7 +20,8 @@ export default function Home() {
     PlayZoneData,
     DrawPlayerCard,
     PlayPlayerCards,
-    setEffectsSounds
+    setEffectsSounds,
+    players
   } = useContext(GameContext)
 
   const fun = {
@@ -45,8 +46,8 @@ export default function Home() {
 
   useEffect(() => {
     setUpGame()
-    setEffectsSounds(cargarSonido('/sound/pop.mp3'), 'sonidoPop') 
-    setEffectsSounds(cargarSonido('/sound/deslizar.mp3'), 'sonidoDraw') 
+    setEffectsSounds(cargarSonido('/sound/pop.mp3'), 'sonidoPop')
+    setEffectsSounds(cargarSonido('/sound/deslizar.mp3'), 'sonidoDraw')
   }, [])
 
   useEffect(() => {
@@ -74,10 +75,10 @@ export default function Home() {
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
     const timer = setTimeout(() => {
-      if (turno == 1) {
+      if (players[turno] == 'DeimosBot') {
         Deimos.play()
       }
-      if (turno == 2) {
+      if (players[turno] == 'FobosBot') {
         Fobos.play()
       }
     }, 2000);
@@ -93,7 +94,8 @@ export default function Home() {
           :
           <>
             <h1 style={{ display: 'flex', justifyContent: 'space-between' }} >
-              <div>Arttis: GameBots</div>  <div>Turn of {turns[turno]}</div> </h1>
+              <div>Arttis: GameBots</div>  <div>Turn of {players[turno]}</div>
+            </h1>
             <div className={styles.play} >
               <BotHand listCard={FobosBot} left />
               <div className={styles.desks} >
