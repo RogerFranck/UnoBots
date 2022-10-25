@@ -14,14 +14,14 @@ export default class Bot extends Component {
     return this.props.PlayZoneData[this.props.PlayZoneData.length - 1]
   }
 
-  getOpcionPlayCard = (cardInPlayZone) => {
+  getOptionPlayCard = (cardInPlayZone) => {
     //? Trae las cartas que puede jugar
     return this.state.hand.filter((e) => e.color == cardInPlayZone.color || e.number == cardInPlayZone.number)
   }
 
-  isOpcions = (opcions) => {
-    //? Tiene opciones para jugar?
-    return opcions.length > 0
+  isOptions = (options) => {
+    //? Tiene optiones para jugar?
+    return options.length > 0
   }
 
   sendMessage = () => {
@@ -34,14 +34,14 @@ export default class Bot extends Component {
     //? Puedo resolver su peticion ? lo hago : continuo normal
   }
 
-  selectedCard = (opcions) => {
-    //? Dentro de sus opciones escoge la carta que mas le beneficia
-    //? Por cada una de sus opciones verifica cuantas cartas podria jugar si se conserva color o numero
-    //? Selecciona la opcion que al ser jugada le permita mas posibilidades de jugar otras cartas
+  selectedCard = (options) => {
+    //? Dentro de sus optiones escoge la carta que mas le beneficia
+    //? Por cada una de sus optiones verifica cuantas cartas podria jugar si se conserva color o numero
+    //? Selecciona la option que al ser jugada le permita mas posibilidades de jugar otras cartas
     let maxPlayableCards = 0;
     let betterCard;
-    opcions.forEach(element => {
-      const test = this.getOpcionPlayCard(element)
+    options.forEach(element => {
+      const test = this.getOptionPlayCard(element)
       if (test.length > maxPlayableCards) {
         maxPlayableCards = test.length
         betterCard = element
@@ -60,9 +60,9 @@ export default class Bot extends Component {
 
   play = () => {
     const cardInPlayZone = this.seePlayZoneCard()
-    const opcions = this.getOpcionPlayCard(cardInPlayZone)
-    if (this.isOpcions(opcions)) {
-      const betterCard = this.selectedCard(opcions)
+    const options = this.getOptionPlayCard(cardInPlayZone)
+    if (this.isOptions(options)) {
+      const betterCard = this.selectedCard(options)
       this.playCard(betterCard)
       console.log(`${this.state.name} play ${betterCard.number} - ${betterCard.color}`)
     } else {
