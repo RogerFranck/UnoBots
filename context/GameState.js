@@ -73,7 +73,7 @@ const GameState = ({ children }) => {
     return newPlayer;
   }
 
-  const reversePlayCard = () => { //! Bugueado
+  const reversePlayCard = () => { //? Bugueado
     const newDirection = state.direction * (-1);
     let newPlayer = state.turno + newDirection;
     
