@@ -7,7 +7,8 @@ import {
   GET_PLAYERS_CARD,
   NEXT_PLAYER,
   SET_SOUND,
-  NEW_SEQUENCE
+  NEW_SEQUENCE,
+  OPEN_SELECTED_CARD_MODAL
 } from "./types";
 import Deck from '../classes/deck';
 
@@ -25,10 +26,18 @@ const GameState = ({ children }) => {
     sonidoPop: false,
     sonidoDraw: false,
     players: ['playerHand', 'DeimosBot', 'FobosBot'],
-    direction: 1
+    direction: 1,
+    openSelectedCardModal: false
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
+
+  const OpenSelectedCardModal = (value) => {
+    dispatch({
+      type: OPEN_SELECTED_CARD_MODAL,
+      payload: value
+    })
+  }
 
   const setEffectsSounds = (sonido, target) => {
     dispatch({
@@ -140,6 +149,13 @@ const GameState = ({ children }) => {
     NextPlayer(skip);
   }
 
+  const changeColorEspecialCard = (color) => {
+    const playZoneCard = state.PlayZone[state.PlayZone.length - 1]
+    playZoneCard.color = color
+    OpenSelectedCardModal(false)
+    NextPlayer()
+  }
+
   const drawTwoCardUnoButton= (skip) => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
@@ -155,10 +171,9 @@ const GameState = ({ children }) => {
     });
   }
 
-  const wildPlayCard = (skip) => {
-    console.log("Wild Card")
+  const wildPlayCard = () => {
+    OpenSelectedCardModal(true)
   }
-
 
   const setUpGame = (reload = false, data = {}) => {
     if (!reload) {
@@ -232,11 +247,13 @@ const GameState = ({ children }) => {
           skip = skipPlayCard()
           break;
         case 'd':
+          alreadyExecuted = true;
           drawFourPlayCard()
-          skip = skipPlayCard()
+          /* skip = skipPlayCard() */
           break;
         case 'e':
-          drawTwoPlayCard()
+          alreadyExecuted = true;
+          wildPlayCard()
           break;
         default:
           break;
@@ -275,11 +292,13 @@ const GameState = ({ children }) => {
       PlayZoneData: state.PlayZone,
       turno: state.turno,
       players: state.players,
+      openSelectedCardModal: state.openSelectedCardModal,
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,
       setEffectsSounds,
       drawTwoCardUnoButton,
+      changeColorEspecialCard,
     }} >
       {children}
     </GameContext.Provider>

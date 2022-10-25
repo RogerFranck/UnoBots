@@ -8,6 +8,7 @@ import GameContext from "../context/GameContext"
 import styles from '../styles/Home.module.css'
 import Bot from "../classes/Bot"
 import ButtonUno from "../components/General/ButtonUno"
+import SelectedColor from "../components/General/SelectedColor"
 
 export default function Home() {
 
@@ -96,6 +97,7 @@ export default function Home() {
 
   return (
     <div className={styles.Home} >
+      <SelectedColor />
       {
         win.win ?
           <div className={styles.win} >Winner {win.player}! </div>

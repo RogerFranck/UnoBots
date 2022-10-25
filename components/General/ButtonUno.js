@@ -12,12 +12,10 @@ export default function ButtonUno({ drawTwoCardUnoButton }) {
   }
 
   const clickButton = () => {
-    console.log('Toco click')
     setclick(true)
   }
 
   useEffect(() => {
-    console.log(click)
     if (!click) {
       const timer = setTimeout(() => {
         NoclickButton()
