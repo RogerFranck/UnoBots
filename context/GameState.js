@@ -58,10 +58,8 @@ const GameState = ({ children }) => {
 
   const skipPlayCard = () => {
     let newPlayer = state.turno;
-    const direction = 1;
-    
     for (let i = 0; i < 2; i++) {
-      newPlayer += direction;
+      newPlayer += state.direction;
 
       if (newPlayer > 2) {
         newPlayer = 0;
