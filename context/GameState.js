@@ -100,6 +100,7 @@ const GameState = ({ children }) => {
   }
 
   const drawFourPlayCard = (skip) => { //* Aun no son stakeables
+    /* OpenSelectedCardModal(true) */
     const stackList = state.Stack
     const cardDraw = stackList.pop()
     const cardDraw2 = stackList.pop()
@@ -247,9 +248,9 @@ const GameState = ({ children }) => {
           skip = skipPlayCard()
           break;
         case 'd':
-          alreadyExecuted = true;
+          /* alreadyExecuted = true; */
           drawFourPlayCard()
-          /* skip = skipPlayCard() */
+          skip = skipPlayCard()
           break;
         case 'e':
           alreadyExecuted = true;
