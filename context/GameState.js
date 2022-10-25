@@ -56,7 +56,7 @@ const GameState = ({ children }) => {
     })
   }
 
-  const skipPlayCard = () => { //? buegueado ?
+  const skipPlayCard = () => {
     let newPlayer = state.turno;
     const direction = 1;
     
@@ -74,7 +74,6 @@ const GameState = ({ children }) => {
   }
 
   const reversePlayCard = () => { //! Bugueado
-    //* funciona bien cuando lo juega un bot
     const newDirection = state.direction * (-1);
     let newPlayer = state.turno + newDirection;
     
@@ -83,12 +82,12 @@ const GameState = ({ children }) => {
     } else if (newPlayer < 0) {
       newPlayer = 2;
     }
-
+    console.log(newPlayer)
     dispatch({
       type: NEW_SEQUENCE,
       payload: {
         direction: newDirection,
-        newPlayer: newPlayer
+        newPlayer,
       }
     });
   }
