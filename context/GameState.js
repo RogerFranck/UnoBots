@@ -67,14 +67,14 @@ const GameState = ({ children }) => {
         newPlayer = 2;
       }
     }
-    
+
     return newPlayer;
   }
 
   const reversePlayCard = () => { //? Bugueado
     const newDirection = state.direction * (-1);
     let newPlayer = state.turno + newDirection;
-    
+
     if (newPlayer > 2) {
       newPlayer = 0
     } else if (newPlayer < 0) {
@@ -88,6 +88,30 @@ const GameState = ({ children }) => {
         newPlayer,
       }
     });
+  }
+
+  const drawFourPlayCard = (skip) => { //* Aun no son stakeables
+    const stackList = state.Stack
+    const cardDraw = stackList.pop()
+    const cardDraw2 = stackList.pop()
+    const currentPlayer = state.turno
+    let newPlayer = currentPlayer
+    if (currentPlayer == 2) {
+      newPlayer = 0
+    } else {
+      newPlayer = currentPlayer + 1
+    }
+    const handList = [...state[state.players[newPlayer]], cardDraw, cardDraw2]
+    dispatch({
+      type: DRAW_PLAYER_STACK,
+      payload: {
+        HandList: handList,
+        stackList,
+        currentPlayer: state.players[newPlayer]
+      }
+    });
+
+    NextPlayer(skip);
   }
 
   const drawTwoPlayCard = (skip) => { //* Aun no son stakeables
@@ -112,6 +136,10 @@ const GameState = ({ children }) => {
     });
 
     NextPlayer(skip);
+  }
+
+  const wildPlayCard = (skip) => {
+   console.log("Wild Card")
   }
 
 
@@ -153,7 +181,9 @@ const GameState = ({ children }) => {
 
   const PlayPlayerCards = (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
-      || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
+      || card.number == state.PlayZone[state.PlayZone.length - 1].number
+      || card.color == 'Especial'
+      ) {
 
       let skip = false;
       let alreadyExecuted = false;
@@ -169,6 +199,13 @@ const GameState = ({ children }) => {
         case 'c':
           drawTwoPlayCard()
           skip = skipPlayCard()
+          break;
+        case 'd':
+          drawFourPlayCard()
+          skip = skipPlayCard()
+          break;
+        case 'e':
+          drawTwoPlayCard()
           break;
         default:
           break;
