@@ -94,6 +94,8 @@ const GameState = ({ children }) => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
     const cardDraw2 = stackList.pop()
+    const cardDraw3 = stackList.pop()
+    const cardDraw4 = stackList.pop()
     const currentPlayer = state.turno
     let newPlayer = currentPlayer
     if (currentPlayer == 2) {
@@ -101,7 +103,7 @@ const GameState = ({ children }) => {
     } else {
       newPlayer = currentPlayer + 1
     }
-    const handList = [...state[state.players[newPlayer]], cardDraw, cardDraw2]
+    const handList = [...state[state.players[newPlayer]], cardDraw, cardDraw2, cardDraw3, cardDraw4]
     dispatch({
       type: DRAW_PLAYER_STACK,
       payload: {
@@ -138,8 +140,23 @@ const GameState = ({ children }) => {
     NextPlayer(skip);
   }
 
+  const drawTwoCardUnoButton= (skip) => {
+    const stackList = state.Stack
+    const cardDraw = stackList.pop()
+    const cardDraw2 = stackList.pop()
+    const handList = [...state.playerHand, cardDraw, cardDraw2]
+    dispatch({
+      type: DRAW_PLAYER_STACK,
+      payload: {
+        HandList: handList,
+        stackList,
+        currentPlayer: 'playerHand'
+      }
+    });
+  }
+
   const wildPlayCard = (skip) => {
-   console.log("Wild Card")
+    console.log("Wild Card")
   }
 
 
@@ -197,7 +214,7 @@ const GameState = ({ children }) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
       || card.number == state.PlayZone[state.PlayZone.length - 1].number
       || card.color == 'Especial'
-      ) {
+    ) {
 
       let skip = false;
       let alreadyExecuted = false;
@@ -229,7 +246,7 @@ const GameState = ({ children }) => {
       hand.splice(hand.indexOf(card), 1)
       newPlace.push(card)
       const newPlayerHand = hand;
-      
+
 
       dispatch({
         type: PLAY_PLAYER_PLAYZONE,
@@ -262,6 +279,7 @@ const GameState = ({ children }) => {
       DrawPlayerCard,
       PlayPlayerCards,
       setEffectsSounds,
+      drawTwoCardUnoButton,
     }} >
       {children}
     </GameContext.Provider>

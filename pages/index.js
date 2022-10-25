@@ -6,8 +6,8 @@ import PlayZone from "../components/Stack/Playzone"
 import Stack from "../components/Stack/Stack"
 import GameContext from "../context/GameContext"
 import styles from '../styles/Home.module.css'
-import { turns } from '../constants/constants'
 import Bot from "../classes/Bot"
+import ButtonUno from "../components/General/ButtonUno"
 
 export default function Home() {
 
@@ -22,7 +22,8 @@ export default function Home() {
     PlayPlayerCards,
     setEffectsSounds,
     Stack: stack,
-    players
+    players,
+    drawTwoCardUnoButton
   } = useContext(GameContext)
 
   const fun = {
@@ -112,6 +113,10 @@ export default function Home() {
               <BotHand listCard={DeimosBot} />
             </div>
             <center>
+              {
+                playerHand.length == 1 &&
+                <ButtonUno drawTwoCardUnoButton={drawTwoCardUnoButton} />
+              }
               <ViewHand listCard={playerHand} />
             </center>
           </>
