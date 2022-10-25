@@ -21,6 +21,7 @@ export default function Home() {
     DrawPlayerCard,
     PlayPlayerCards,
     setEffectsSounds,
+    Stack: stack,
     players
   } = useContext(GameContext)
 
@@ -51,6 +52,9 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    if (!stack.length) {
+      setUpGame(true, PlayZoneData)
+    }
     if (playerHand.length == 0) {
       setwin({
         win: true,
@@ -72,6 +76,9 @@ export default function Home() {
   }, [playerHand, FobosBot, DeimosBot])
 
   useEffect(() => {
+    if (!stack.length) {
+      setUpGame(true, PlayZoneData)
+    }
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
     const timer = setTimeout(() => {

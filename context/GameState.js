@@ -115,23 +115,37 @@ const GameState = ({ children }) => {
   }
 
 
-  const setUpGame = () => {
-    const deck = new Deck();
-    const {
-      playerHand,
-      FobosBot,
-      DeimosBot
-    } = drawHands(deck);
-    dispatch({
-      type: GET_PLAYERS_CARD,
-      payload: {
+  const setUpGame = (reload = false, data = {}) => {
+    if (!reload) {
+      const deck = new Deck();
+      const {
         playerHand,
         FobosBot,
-        DeimosBot,
-        firsPlayZone: [deck.firstCardPlayZone()],
-        newStack: deck.cards,
-      }
-    })
+        DeimosBot
+      } = drawHands(deck);
+      dispatch({
+        type: GET_PLAYERS_CARD,
+        payload: {
+          playerHand,
+          FobosBot,
+          DeimosBot,
+          firsPlayZone: [deck.firstCardPlayZone()],
+          newStack: deck.cards,
+        }
+      })
+    } else {
+
+      dispatch({
+        type: GET_PLAYERS_CARD,
+        payload: {
+          playerHand: state.playerHand,
+          FobosBot: state.FobosBot,
+          DeimosBot: state.DeimosBot,
+          firsPlayZone: [data.pop()],
+          newStack: data.sort(() => Math.random() - 0.5),
+        }
+      })
+    }
   }
 
   const DrawPlayerCard = () => {
@@ -173,10 +187,12 @@ const GameState = ({ children }) => {
         default:
           break;
       }
-
       const newPlace = state.PlayZone
-      const newPlayerHand = state[target].filter((e) => e != card)
+      const hand = state[target];
+      hand.splice(hand.indexOf(card), 1)
       newPlace.push(card)
+      const newPlayerHand = hand;
+      
 
       dispatch({
         type: PLAY_PLAYER_PLAYZONE,
@@ -231,3 +247,4 @@ const drawHands = (deck) => {
 
   return hands
 };
+
