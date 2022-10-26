@@ -1,0 +1,52 @@
+.colorBoxRed {
+  width: 100px;
+  height: 100px;
+  background-color: #D93D26;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.colorBoxBlue {
+  width: 100px;
+  height: 100px;
+  background-color: #005EA6;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.colorBoxGreen {
+  width: 100px;
+  height: 100px;
+  background-color: #41B401;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.colorBoxYellow {
+  width: 100px;
+  height: 100px;
+  background-color: #F5C400;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.colorBoxRed:hover {
+  margin-top: 7px;
+}
+.colorBoxBlue:hover {
+  margin-top: 7px;
+}
+.colorBoxGreen:hover {
+  margin-top: 7px;
+}
+.colorBoxYellow:hover {
+  margin-top: 7px;
+}
+
+.rows {
+  display: flex;
+}

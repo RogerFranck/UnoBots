@@ -4,7 +4,8 @@ import {
   GET_PLAYERS_CARD,
   NEXT_PLAYER,
   SET_SOUND,
-  NEW_SEQUENCE
+  NEW_SEQUENCE,
+  OPEN_SELECTED_CARD_MODAL
 } from "./types";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -39,6 +40,11 @@ export default (state, action) => {
       return {
         ...state,
         [payload.target]: payload.sonido,
+      };
+    case OPEN_SELECTED_CARD_MODAL:
+      return {
+        ...state,
+        openSelectedCardModal: payload,
       };
     case GET_PLAYERS_CARD:
       return {

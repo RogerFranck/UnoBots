@@ -19,9 +19,7 @@ export default function NumberCard({ Number, Color, Focus, onClick, turno, playe
   return (
     <div
       className={Focus ? styles.Card : styles.CardFocus}
-      style={noColorsEspecial.includes(Number) ?
-        { backgroundColor: colorCode['Especial'], color: colorCode['Especial'] } :
-        { backgroundColor: colorCode[Color] }}
+      style={{ backgroundColor: colorCode[Color] }}
       onClick={ players && players[turno] == 'playerHand' ? onClick : () => console.log('No')}
     >
       {
