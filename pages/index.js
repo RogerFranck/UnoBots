@@ -57,6 +57,7 @@ export default function Home() {
     if (!stack.length) {
       setUpGame(true, PlayZoneData)
     }
+    console.log("TURNOS")
     if (playerHand.length == 0) {
       setwin({
         win: true,
@@ -75,7 +76,7 @@ export default function Home() {
         player: 'Deimos bot'
       })
     }
-  }, [playerHand, FobosBot, DeimosBot])
+  }, [playerHand, FobosBot, DeimosBot, turno])
 
   useEffect(() => {
     if (!stack.length) {
