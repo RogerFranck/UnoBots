@@ -60,7 +60,7 @@ const GameState = ({ children }) => {
     dispatch({
       type: NEXT_PLAYER,
       payload: {
-        newPlayer: skip ? skip : newPlayer,
+        newPlayer: typeof skip === 'number' ? skip : newPlayer,
       }
     })
   }
@@ -232,12 +232,19 @@ const GameState = ({ children }) => {
       || card.color == 'Especial'
     ) {
 
+      if (target == 'playerHand') {
+        console.log(`Jugador jugo: ${card.id}`)
+      }
+
       let skip = false;
       let alreadyExecuted = false;
 
       switch (card.number) {
         case 'a':
           skip = skipPlayCard()
+          if (state.turno == 1 || state.turno == 2 ) {
+            console.log('El maldito robot jugo un skip', skip)
+          }
           break;
         case 'b':
           alreadyExecuted = true;

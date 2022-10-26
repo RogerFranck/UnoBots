@@ -84,10 +84,11 @@ export default function Home() {
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
     const timer = setTimeout(() => {
-      if (players[turno] == 'DeimosBot') {
+      if (turno == 1) {
         Deimos.play()
+        console.log(DeimosBot)
       }
-      if (players[turno] == 'FobosBot') {
+      if (turno == 2) {
         Fobos.play()
       }
     }, 2000);

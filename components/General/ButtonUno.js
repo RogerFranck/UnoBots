@@ -19,7 +19,7 @@ export default function ButtonUno({ drawTwoCardUnoButton }) {
     if (!click) {
       const timer = setTimeout(() => {
         NoclickButton()
-      }, 3000);
+      }, 1250);
       return () => clearTimeout(timer);
     }
   }, [click])
