@@ -7,7 +7,8 @@ import {
   GET_PLAYERS_CARD,
   NEXT_PLAYER,
   SET_SOUND,
-  NEW_SEQUENCE
+  NEW_SEQUENCE,
+  OPEN_SELECTED_CARD_MODAL
 } from "./types";
 import Deck from '../classes/deck';
 
@@ -25,10 +26,18 @@ const GameState = ({ children }) => {
     sonidoPop: false,
     sonidoDraw: false,
     players: ['playerHand', 'DeimosBot', 'FobosBot'],
-    direction: 1
+    direction: 1,
+    openSelectedCardModal: false
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
+
+  const OpenSelectedCardModal = (value) => {
+    dispatch({
+      type: OPEN_SELECTED_CARD_MODAL,
+      payload: value
+    })
+  }
 
   const setEffectsSounds = (sonido, target) => {
     dispatch({
@@ -51,7 +60,7 @@ const GameState = ({ children }) => {
     dispatch({
       type: NEXT_PLAYER,
       payload: {
-        newPlayer: skip ? skip : newPlayer,
+        newPlayer: typeof skip === 'number' ? skip : newPlayer,
       }
     })
   }
@@ -67,14 +76,14 @@ const GameState = ({ children }) => {
         newPlayer = 2;
       }
     }
-    
+
     return newPlayer;
   }
 
   const reversePlayCard = () => { //? Bugueado
     const newDirection = state.direction * (-1);
     let newPlayer = state.turno + newDirection;
-    
+
     if (newPlayer > 2) {
       newPlayer = 0
     } else if (newPlayer < 0) {
@@ -88,6 +97,33 @@ const GameState = ({ children }) => {
         newPlayer,
       }
     });
+  }
+
+  const drawFourPlayCard = (skip) => { //* Aun no son stakeables
+    /* OpenSelectedCardModal(true) */
+    const stackList = state.Stack
+    const cardDraw = stackList.pop()
+    const cardDraw2 = stackList.pop()
+    const cardDraw3 = stackList.pop()
+    const cardDraw4 = stackList.pop()
+    const currentPlayer = state.turno
+    let newPlayer = currentPlayer
+    if (currentPlayer == 2) {
+      newPlayer = 0
+    } else {
+      newPlayer = currentPlayer + 1
+    }
+    const handList = [...state[state.players[newPlayer]], cardDraw, cardDraw2, cardDraw3, cardDraw4]
+    dispatch({
+      type: DRAW_PLAYER_STACK,
+      payload: {
+        HandList: handList,
+        stackList,
+        currentPlayer: state.players[newPlayer]
+      }
+    });
+
+    NextPlayer(skip);
   }
 
   const drawTwoPlayCard = (skip) => { //* Aun no son stakeables
@@ -114,6 +150,31 @@ const GameState = ({ children }) => {
     NextPlayer(skip);
   }
 
+  const changeColorEspecialCard = (color) => {
+    const playZoneCard = state.PlayZone[state.PlayZone.length - 1]
+    playZoneCard.color = color
+    OpenSelectedCardModal(false)
+    NextPlayer()
+  }
+
+  const drawTwoCardUnoButton= (skip) => {
+    const stackList = state.Stack
+    const cardDraw = stackList.pop()
+    const cardDraw2 = stackList.pop()
+    const handList = [...state.playerHand, cardDraw, cardDraw2]
+    dispatch({
+      type: DRAW_PLAYER_STACK,
+      payload: {
+        HandList: handList,
+        stackList,
+        currentPlayer: 'playerHand'
+      }
+    });
+  }
+
+  const wildPlayCard = () => {
+    OpenSelectedCardModal(true)
+  }
 
   const setUpGame = (reload = false, data = {}) => {
     if (!reload) {
@@ -167,7 +228,13 @@ const GameState = ({ children }) => {
 
   const PlayPlayerCards = (card, target) => {
     if (card.color == state.PlayZone[state.PlayZone.length - 1].color
-      || card.number == state.PlayZone[state.PlayZone.length - 1].number) {
+      || card.number == state.PlayZone[state.PlayZone.length - 1].number
+      || card.color == 'Especial'
+    ) {
+
+      if (target == 'playerHand') {
+        console.log(`Jugador jugo: ${card.id}`)
+      }
 
       let skip = false;
       let alreadyExecuted = false;
@@ -175,6 +242,9 @@ const GameState = ({ children }) => {
       switch (card.number) {
         case 'a':
           skip = skipPlayCard()
+          if (state.turno == 1 || state.turno == 2 ) {
+            console.log('El maldito robot jugo un skip', skip)
+          }
           break;
         case 'b':
           alreadyExecuted = true;
@@ -184,6 +254,15 @@ const GameState = ({ children }) => {
           drawTwoPlayCard()
           skip = skipPlayCard()
           break;
+        case 'd':
+          /* alreadyExecuted = true; */
+          drawFourPlayCard()
+          skip = skipPlayCard()
+          break;
+        case 'e':
+          alreadyExecuted = true;
+          wildPlayCard()
+          break;
         default:
           break;
       }
@@ -192,7 +271,7 @@ const GameState = ({ children }) => {
       hand.splice(hand.indexOf(card), 1)
       newPlace.push(card)
       const newPlayerHand = hand;
-      
+
 
       dispatch({
         type: PLAY_PLAYER_PLAYZONE,
@@ -221,10 +300,13 @@ const GameState = ({ children }) => {
       PlayZoneData: state.PlayZone,
       turno: state.turno,
       players: state.players,
+      openSelectedCardModal: state.openSelectedCardModal,
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,
       setEffectsSounds,
+      drawTwoCardUnoButton,
+      changeColorEspecialCard,
     }} >
       {children}
     </GameContext.Provider>

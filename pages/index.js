@@ -6,8 +6,9 @@ import PlayZone from "../components/Stack/Playzone"
 import Stack from "../components/Stack/Stack"
 import GameContext from "../context/GameContext"
 import styles from '../styles/Home.module.css'
-import { turns } from '../constants/constants'
 import Bot from "../classes/Bot"
+import ButtonUno from "../components/General/ButtonUno"
+import SelectedColor from "../components/General/SelectedColor"
 
 export default function Home() {
 
@@ -22,7 +23,8 @@ export default function Home() {
     PlayPlayerCards,
     setEffectsSounds,
     Stack: stack,
-    players
+    players,
+    drawTwoCardUnoButton
   } = useContext(GameContext)
 
   const fun = {
@@ -55,6 +57,7 @@ export default function Home() {
     if (!stack.length) {
       setUpGame(true, PlayZoneData)
     }
+    console.log("TURNOS")
     if (playerHand.length == 0) {
       setwin({
         win: true,
@@ -73,7 +76,7 @@ export default function Home() {
         player: 'Deimos bot'
       })
     }
-  }, [playerHand, FobosBot, DeimosBot])
+  }, [playerHand, FobosBot, DeimosBot, turno])
 
   useEffect(() => {
     if (!stack.length) {
@@ -82,10 +85,11 @@ export default function Home() {
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
     const timer = setTimeout(() => {
-      if (players[turno] == 'DeimosBot') {
+      if (turno == 1) {
         Deimos.play()
+        console.log(DeimosBot)
       }
-      if (players[turno] == 'FobosBot') {
+      if (turno == 2) {
         Fobos.play()
       }
     }, 2000);
@@ -95,6 +99,7 @@ export default function Home() {
 
   return (
     <div className={styles.Home} >
+      <SelectedColor />
       {
         win.win ?
           <div className={styles.win} >Winner {win.player}! </div>
@@ -112,6 +117,10 @@ export default function Home() {
               <BotHand listCard={DeimosBot} />
             </div>
             <center>
+              {
+                playerHand.length == 1 &&
+                <ButtonUno drawTwoCardUnoButton={drawTwoCardUnoButton} />
+              }
               <ViewHand listCard={playerHand} />
             </center>
           </>

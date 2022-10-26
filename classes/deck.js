@@ -13,8 +13,8 @@ const generateCards = () => {
 
   const special = wildcards.map((card, i) => new Card('Especial', card, `${card}-Especial-${i}`));
 
-  // return [...half, ...half, ...special].sort(() => Math.random() - 0.5);
-  return [...half, ...half].sort(() => Math.random() - 0.5);
+  return [...half, ...half, ...special].sort(() => Math.random() - 0.5);
+  /* return [...half, ...half].sort(() => Math.random() - 0.5); */
 }
 
 class Deck {
