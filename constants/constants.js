@@ -10,10 +10,10 @@ module.exports = {
     e: 'wild'
   },
   wildcards: [
-    /* 'd',
     'd',
     'd',
-    'd', */
+    'd',
+    'd',
     'e',
     'e',
     'e',
