@@ -24,12 +24,14 @@ export default function Home() {
     setEffectsSounds,
     Stack: stack,
     players,
-    drawTwoCardUnoButton
+    drawTwoCardUnoButton,
+    changeColorEspecialCard
   } = useContext(GameContext)
 
   const fun = {
     DrawPlayerCard,
-    PlayPlayerCards
+    PlayPlayerCards,
+    changeColorEspecialCard
   }
 
   const [win, setwin] = useState({

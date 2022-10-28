@@ -58,6 +58,10 @@ export default class Bot extends Component {
     this.props.fun.PlayPlayerCards(card, this.state.name)
   }
 
+  chooseColorEspecialCard = (color) => {
+    this.props.fun.changeColorEspecialCard(color)
+  }
+
   play = () => {
     const cardInPlayZone = this.seePlayZoneCard()
     const options = this.getOptionPlayCard(cardInPlayZone)
