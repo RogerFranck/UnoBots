@@ -1,6 +1,7 @@
 module.exports = {
   activeValues: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c'],
   colors: ['Blue', 'Green', 'Red', 'Yellow'],
+  coop: true,
   turns: ['Player', 'Deimos', 'Fobos'],
   especialCardsText: {
     a: 'skip',
@@ -10,13 +11,13 @@ module.exports = {
     e: 'wild'
   },
   wildcards: [
-    /* 'd',
     'd',
     'd',
-    'd', */
+    'd',
+    'd',
     'e',
     'e',
     'e',
     'e',
-  ]
+  ],
 };

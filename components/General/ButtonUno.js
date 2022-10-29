@@ -8,18 +8,18 @@ export default function ButtonUno({ drawTwoCardUnoButton }) {
   const [click, setclick] = useState(false)
 
   const NoclickButton = () => {
-    drawTwoCardUnoButton()
+    drawTwoCardUnoButton() //* Controlador de castigo
   }
 
   const clickButton = () => {
     setclick(true)
   }
 
-  useEffect(() => {
-    if (!click) {
+  useEffect(() => { //* Al renderizar componente inicia un timer para ejecutar la funcion de castigo
+    if (!click) { //* si el btn es precionado antes de que se acabe el tiempo se mata el componente y no se ejecuta el castigo
       const timer = setTimeout(() => {
         NoclickButton()
-      }, 1250);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [click])
