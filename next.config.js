@@ -2,12 +2,12 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,  
-  /* images: {
+  images: {
     loader: "akamai",
     path: ""
   },
   basePath: "/UnoBots",
-  assetPrefix: "/UnoBots" */
+  assetPrefix: "/UnoBots"
 }
 
 module.exports = nextConfig
