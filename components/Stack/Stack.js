@@ -6,7 +6,7 @@ export default function Stack() {
 
   const { DrawPlayerCard, Stack, turno, players } = useContext(GameContext)
 
-  const DrawCard = () => {
+  const DrawCard = () => { //* Solo si es turno del jugador puede presionar una carta
     if (players[turno] == 'playerHand') {
       DrawPlayerCard()
     }

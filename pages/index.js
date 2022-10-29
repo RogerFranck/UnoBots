@@ -28,7 +28,7 @@ export default function Home() {
     changeColorEspecialCard
   } = useContext(GameContext)
 
-  const fun = {
+  const fun = { //* Pasando controladores de juego a los robots
     DrawPlayerCard,
     PlayPlayerCards,
     changeColorEspecialCard
@@ -49,14 +49,14 @@ export default function Home() {
     return sonido;
   };
 
-  useEffect(() => {
+  useEffect(() => { //* Carga inicial del juego [manos, stack, primera carta]  
     setUpGame()
-    setEffectsSounds(cargarSonido('/sound/pop.mp3'), 'sonidoPop')
+    setEffectsSounds(cargarSonido('/sound/pop.mp3'), 'sonidoPop') //* carga de efectos de sonidos
     setEffectsSounds(cargarSonido('/sound/deslizar.mp3'), 'sonidoDraw')
   }, [])
 
-  useEffect(() => {
-    if (!stack.length) {
+  useEffect(() => { //* Verifica la victoria de algun bot o jugador
+    if (!stack.length) { //* en caso de que el stack se acabe lo recompone con las catas jugadas previamente ordenadas al azar
       setUpGame(true, PlayZoneData)
     }
     console.log("TURNOS")
@@ -80,18 +80,18 @@ export default function Home() {
     }
   }, [playerHand, FobosBot, DeimosBot, turno])
 
-  useEffect(() => {
+  useEffect(() => { //* Inicia las jugadas de los robots cuando es su turno
     if (!stack.length) {
       setUpGame(true, PlayZoneData)
     }
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
-    const timer = setTimeout(() => {
+    const timer = setTimeout(() => { //* El turno del robot dura 2 segundos
       if (turno == 1) {
-        Deimos.play(Fobos, turno)
+        Deimos.play(Fobos, turno) //* El robot juega
       }
       if (turno == 2) {
-        Fobos.play(Deimos, turno)
+        Fobos.play(Deimos, turno) //* El robot juega
       }
     }, 2000);
     return () => clearTimeout(timer);

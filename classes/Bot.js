@@ -29,16 +29,6 @@ export default class Bot extends Component {
     return !isEmpty(options);
   }
 
-  sendMessage = () => {
-    //? Funcion para enviar informacion al otro robot
-    //? Ejamplo: "Yo tengo muchas [rojas], si puedes continua con el color [rojo]"
-  }
-
-  getMessage = () => {
-    //? Funcion para obtener información del otro robot
-    //? Puedo resolver su peticion ? lo hago : continuo normal
-  }
-
   selectedCard = (options) => {
     //? Dentro de sus optiones escoge la carta que mas le beneficia
     //? Por cada una de sus optiones verifica cuantas cartas podria jugar si se conserva color o numero
@@ -56,18 +46,22 @@ export default class Bot extends Component {
   }
 
   draw = () => {
+    //? Controlador para tomar una carta del stack
     this.props.fun.DrawPlayerCard()
   }
 
   playCard = (card) => {
+    //? Controlador para jugar una carta en el juego
     this.props.fun.PlayPlayerCards(card, this.state.name)
   }
 
   chooseColorEspecialCard = (color) => {
+    //? Controlador para cambiar de color una carta especial
     this.props.fun.changeColorEspecialCard(color)
   }
 
   getColor = (ally) => {
+    //? dependiendo del beneficio del robot mas cercano a la victoria selecciona un color para las wildCard
     const target = (ally.show().length < this.show().length) && coop ? ally : this; // Agregar validación para coop
 
     const colorCount = target.show().reduce((acc, card) => {
@@ -91,10 +85,12 @@ export default class Bot extends Component {
   }
 
   findWildcard = () => {
+    //? Obtiene las cartas especiales '+4' o 'seleccionar color'
     return this.show().filter((card) => card.color === 'Especial');
   }
 
   answer = (target) => {
+    //? Funcion para obtener informacion del otro robot
     return this.getOptionPlayCard(target).length;
   }
 
@@ -103,6 +99,7 @@ export default class Bot extends Component {
   }
 
   suggest = (ally, options, turn) => {
+    //? Funcion para iniciar comunicación con el otro robot
     const status = ally.show().length < this.show().length;
     if (turn && status) {
       options = options.filter(({ number }) => number !== 'c' );
@@ -147,28 +144,29 @@ export default class Bot extends Component {
 
   play = (ally, turn) => {
     const cardInPlayZone = this.seePlayZoneCard()
-    const options = this.getOptionPlayCard(cardInPlayZone)
+    const options = this.getOptionPlayCard(cardInPlayZone) //? Obtiene todas las opciones de juego
     if (this.isOptions(options)) {
       this.suggest(ally, options)
-      const betterCard = coop ? this.suggest(ally, options, turn) : this.selectedCard(options);
-      if (betterCard === 'draw') {
+      const betterCard = coop ? this.suggest(ally, options, turn) : this.selectedCard(options); //? Dependiendo del modo del robot: 'individualista' o 'coperativo selecciona una carta
+      if (betterCard === 'draw') { //? Si lo mejor para la victoria es tomar una carta lo hace
         this.draw();
         console.log(`${this.state.name} draw card`)
         return;
       }
       console.log({ betterCard })
       this.playCard(betterCard)
-      if (betterCard.color === 'Especial') {
+      if (betterCard.color === 'Especial') { //? En caso de jugar una especial determinar el mejor color a tomar
         this.getColor(ally);
       }
       console.log(`${this.state.name} play ${betterCard.number} - ${betterCard.color}`)
     } else {
-      this.draw()
+      this.draw() //? Si no puede jugar nada entonces toma una carta
       console.log(`${this.state.name} draw card`)
     }
   }
 
   show = () => {
+    //? Funcion para mostrar la mano completa
     return this.state.hand;
   }
 
