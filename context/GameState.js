@@ -100,7 +100,7 @@ const GameState = ({ children }) => {
   }
 
   const drawFourPlayCard = (skip) => { //* Aun no son stakeables
-    /* OpenSelectedCardModal(true) */
+    OpenSelectedCardModal(true)
     const stackList = state.Stack
     const cardDraw = stackList.pop()
     const cardDraw2 = stackList.pop()
@@ -123,7 +123,7 @@ const GameState = ({ children }) => {
       }
     });
 
-    NextPlayer(skip);
+    /* NextPlayer(skip); */
   }
 
   const drawTwoPlayCard = (skip) => { //* Aun no son stakeables
@@ -152,12 +152,16 @@ const GameState = ({ children }) => {
 
   const changeColorEspecialCard = (color) => {
     const playZoneCard = state.PlayZone[state.PlayZone.length - 1]
+    let skip = false
+    if (playZoneCard.number == 'd') {
+      skip = skipPlayCard()
+    }
     playZoneCard.color = color
     OpenSelectedCardModal(false)
-    NextPlayer()
+    NextPlayer(skip)
   }
 
-  const drawTwoCardUnoButton= (skip) => {
+  const drawTwoCardUnoButton = (skip) => {
     const stackList = state.Stack
     const cardDraw = stackList.pop()
     const cardDraw2 = stackList.pop()
@@ -242,7 +246,7 @@ const GameState = ({ children }) => {
       switch (card.number) {
         case 'a':
           skip = skipPlayCard()
-          if (state.turno == 1 || state.turno == 2 ) {
+          if (state.turno == 1 || state.turno == 2) {
             console.log('El maldito robot jugo un skip', skip)
           }
           break;
@@ -255,9 +259,8 @@ const GameState = ({ children }) => {
           skip = skipPlayCard()
           break;
         case 'd':
-          /* alreadyExecuted = true; */
+          alreadyExecuted = true;
           drawFourPlayCard()
-          skip = skipPlayCard()
           break;
         case 'e':
           alreadyExecuted = true;
