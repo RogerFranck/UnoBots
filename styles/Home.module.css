@@ -14,6 +14,12 @@
   justify-content: center;
 }
 
+.Sidebar {
+  position: static;
+  display: flex;
+  text-align: left;
+}
+
 .play {
   display: flex;
   justify-content: space-between;

@@ -9,6 +9,7 @@ import styles from '../styles/Home.module.css'
 import Bot from "../classes/Bot"
 import ButtonUno from "../components/General/ButtonUno"
 import SelectedColor from "../components/General/SelectedColor"
+import Bar from "../components/Sidebar/Bar"
 
 export default function Home() {
 
@@ -106,6 +107,9 @@ export default function Home() {
           <div className={styles.win} >Winner {win.player}! </div>
           :
           <>
+            <div className={styles.Sidebar}>
+              <Bar/>
+            </div>
             <h1 style={{ display: 'flex', justifyContent: 'space-between' }} >
               <div>Arttis: GameBots</div>  <div>Turn of {players[turno]}</div>
             </h1>
