@@ -145,6 +145,7 @@ export default class Bot extends Component {
   play = (ally, turn) => {
     const cardInPlayZone = this.seePlayZoneCard()
     const options = this.getOptionPlayCard(cardInPlayZone) //? Obtiene todas las opciones de juego
+    let logMessage = ''
     if (this.isOptions(options)) {
       this.suggest(ally, options)
       const betterCard = coop ? this.suggest(ally, options, turn) : this.selectedCard(options); //? Dependiendo del modo del robot: 'individualista' o 'coperativo selecciona una carta
@@ -159,10 +160,13 @@ export default class Bot extends Component {
         this.getColor(ally);
       }
       console.log(`${this.state.name} play ${betterCard.number} - ${betterCard.color}`)
+      logMessage = `${this.state.name}: jugó ${betterCard.number} - ${betterCard.color}`
     } else {
       this.draw() //? Si no puede jugar nada entonces toma una carta
       console.log(`${this.state.name} draw card`)
+      logMessage = `${this.state.name}: agarró una carta`
     }
+    return logMessage
   }
 
   show = () => {

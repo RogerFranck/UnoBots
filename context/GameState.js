@@ -27,7 +27,8 @@ const GameState = ({ children }) => {
     sonidoDraw: false,
     players: ['playerHand', 'DeimosBot', 'FobosBot'],
     direction: 1,
-    openSelectedCardModal: false
+    openSelectedCardModal: false,
+    logsArr: ['']
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
@@ -305,6 +306,7 @@ const GameState = ({ children }) => {
       setEffectsSounds,
       drawTwoCardUnoButton,
       changeColorEspecialCard,
+      logsArr: state.logsArr,
     }} >
       {children}
     </GameContext.Provider>

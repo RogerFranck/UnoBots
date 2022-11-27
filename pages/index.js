@@ -26,7 +26,8 @@ export default function Home() {
     Stack: stack,
     players,
     drawTwoCardUnoButton,
-    changeColorEspecialCard
+    changeColorEspecialCard,
+    logsArr
   } = useContext(GameContext)
 
   const fun = { //* Pasando controladores de juego a los robots
@@ -87,12 +88,16 @@ export default function Home() {
     }
     const Deimos = new Bot({ name: 'DeimosBot', hand: DeimosBot, fun, PlayZoneData })
     const Fobos = new Bot({ name: 'FobosBot', hand: FobosBot, fun, PlayZoneData })
+    let jugada = ''
     const timer = setTimeout(() => { //* El turno del robot dura 2 segundos
       if (turno == 1) {
-        Deimos.play(Fobos, turno) //* El robot juega
+        jugada = Deimos.play(Fobos, turno) //* El robot juega
+        //console.log("ihhhhhh", jugada)
+        logsArr.push(jugada)
       }
       if (turno == 2) {
-        Fobos.play(Deimos, turno) //* El robot juega
+        jugada =Fobos.play(Deimos, turno) //* El robot juega
+        logsArr.push(jugada)
       }
     }, 2000);
     return () => clearTimeout(timer);
