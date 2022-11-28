@@ -7,8 +7,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Image from 'next/image'
-//import MenuIcon from '@mui/icons-material/Menu';
-
+import styles from '../../styles/Drawer.module.css'
 
 
 export default function Bar() {
@@ -21,39 +20,33 @@ export default function Bar() {
 
   const [open, setOpen] = useState(false);
 
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
 
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   return(
     <div>
-    <Button onClick={() => setOpen(true)}>
+    <Button onClick={() => handleDrawerOpen()}>
       <Image
         src={`/LogsImg/zerg.png`}
         width={50}
         height={50}
       />
     </Button>
-    <Drawer anchor='left' open={open} onClose={() => setOpen(false)}>
+    <Drawer anchor='left' open={open} onClose={() => handleDrawerClose()}>
       <Box p={2} width='20rem' textAlign='center'>
-        <Typography>
-          Logs :D
+        <Typography className={styles.drawerHead}>
+          Logs
         </Typography>
-        <Typography>
+        <Typography className={styles.drawerBody}>
           {listLogs}
         </Typography>
       </Box>
     </Drawer>
     </div>
-    // <div className={styles.navbar}>
-    //   <div className={styles.navbarPlus}>
-    //     Logs
-    //     <div className={styles.navbarPlusChild}>uhhhhhhhhhhh</div>
-    //   </div>
-    // </div>
   )
 }

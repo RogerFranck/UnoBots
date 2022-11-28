@@ -28,7 +28,7 @@ const GameState = ({ children }) => {
     players: ['playerHand', 'DeimosBot', 'FobosBot'],
     direction: 1,
     openSelectedCardModal: false,
-    logsArr: ['']
+    logsArr: []
   }
 
   const [state, dispatch] = useReducer(GameReducer, initialState)
