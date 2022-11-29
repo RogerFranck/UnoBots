@@ -15,9 +15,8 @@
 }
 
 .Sidebar {
-  position: static;
-  display: flex;
-  text-align: left;
+  position: absolute;
+  left: 0;
 }
 
 .play {

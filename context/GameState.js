@@ -300,13 +300,13 @@ const GameState = ({ children }) => {
       turno: state.turno,
       players: state.players,
       openSelectedCardModal: state.openSelectedCardModal,
+      logsArr: state.logsArr,
       setUpGame,
       DrawPlayerCard,
       PlayPlayerCards,
       setEffectsSounds,
       drawTwoCardUnoButton,
       changeColorEspecialCard,
-      logsArr: state.logsArr,
     }} >
       {children}
     </GameContext.Provider>
