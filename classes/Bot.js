@@ -62,7 +62,7 @@ export default class Bot extends Component {
 
   getColor = (ally) => {
     //? dependiendo del beneficio del robot mas cercano a la victoria selecciona un color para las wildCard
-    const target = (ally.show().length < this.show().length) && coop ? ally : this; // Agregar validación para coop
+    const target = ally.show().length < this.show().length ? ally : this; // Agregar validación para coop
 
     const colorCount = target.show().reduce((acc, card) => {
       if (Object.keys(acc).includes(card.color)) {
