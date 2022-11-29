@@ -32,7 +32,7 @@ export default function Bar() {
     <div>
     <Button onClick={() => handleDrawerOpen()}>
       <Image
-        src={`/LogsImg/zerg.png`}
+        src={`/LogsImg/lineas.png`}
         width={50}
         height={50}
       />

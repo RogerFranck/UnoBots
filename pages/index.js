@@ -92,11 +92,12 @@ export default function Home() {
     const timer = setTimeout(() => { //* El turno del robot dura 2 segundos
       if (turno == 1) {
         jugada = Deimos.play(Fobos, turno) //* El robot juega
-        //console.log("ihhhhhh", jugada)
+        console.log("ihhhhhh", jugada)
         logsArr.push(jugada)
       }
       if (turno == 2) {
-        jugada =Fobos.play(Deimos, turno) //* El robot juega
+        jugada = Fobos.play(Deimos, turno) //* El robot juega
+        console.log("ihhhhhh Fobos", jugada)
         logsArr.push(jugada)
       }
     }, 2000);

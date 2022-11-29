@@ -160,11 +160,11 @@ export default class Bot extends Component {
         this.getColor(ally);
       }
       console.log(`${this.state.name} play ${betterCard.number} - ${betterCard.color}`)
-      logMessage = `${this.state.name}: jugó ${betterCard.number} - ${betterCard.color}`
+      logMessage = `${this.state.name}: played ${betterCard.number} - ${betterCard.color}`
     } else {
       this.draw() //? Si no puede jugar nada entonces toma una carta
       console.log(`${this.state.name} draw card`)
-      logMessage = `${this.state.name}: agarró una carta`
+      logMessage = `${this.state.name}: drew a card`
     }
     return logMessage
   }
