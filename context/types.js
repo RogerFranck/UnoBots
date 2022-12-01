@@ -5,3 +5,4 @@ export const NEXT_PLAYER = 'NEXT_PLAYER';
 export const SET_SOUND = 'SET_SOUND';
 export const NEW_SEQUENCE = 'NEW_SEQUENCE';
 export const OPEN_SELECTED_CARD_MODAL = 'OPEN_SELECTED_CARD_MODAL';
+export const SET_IA_COOP = 'SET_IA_COOP';
