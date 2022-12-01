@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital@0;1&display=swap");
 
 .Home {
   padding: 20px;
   height: 100vh;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,8 +15,13 @@
 }
 
 .Sidebar {
-  position: absolute;
-  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.txt {
+  font-size: 2em;
 }
 
 .play {
@@ -38,5 +43,8 @@
 @media (max-width: 600px) {
   .play {
     flex-direction: column;
+  }
+  .txt {
+    font-size: 1em;
   }
 }

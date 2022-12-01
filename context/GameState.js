@@ -9,6 +9,7 @@ import {
   SET_SOUND,
   NEW_SEQUENCE,
   OPEN_SELECTED_CARD_MODAL,
+  SET_IA_COOP,
 } from "./types";
 import Deck from "../classes/deck";
 
@@ -29,6 +30,7 @@ const GameState = ({ children }) => {
     direction: 1,
     openSelectedCardModal: false,
     logsArr: [],
+    isIaTeam: true,
   };
 
   const [state, dispatch] = useReducer(GameReducer, initialState);
@@ -229,6 +231,9 @@ const GameState = ({ children }) => {
 
   const DrawPlayerCard = () => {
     //* El jugador toma una carta del stack
+    if (state.players[state.turno] == "playerHand") {
+      state.logsArr.push(["Player", "x", "Especial"]);
+    }
     const stackList = state.Stack;
     const cardDraw = stackList.pop();
     dispatch({
@@ -255,7 +260,7 @@ const GameState = ({ children }) => {
       //* Comprueba que las cartas sean jugables
 
       if (target == "playerHand") {
-        state.logsArr.push(`Player: played ${card.number} - ${card.color}`);
+        state.logsArr.push(["Player", card.number, card.color]);
       }
 
       let skip = false; //* Nos ayuda a saber como manejar los turnos para los diferentes casos
@@ -311,6 +316,13 @@ const GameState = ({ children }) => {
     }
   };
 
+  const handleSetIaCoop = (isTeam) => {
+    dispatch({
+      type: SET_IA_COOP,
+      payload: isTeam,
+    });
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -323,12 +335,14 @@ const GameState = ({ children }) => {
         players: state.players,
         openSelectedCardModal: state.openSelectedCardModal,
         logsArr: state.logsArr,
+        isIaTeam: state.isIaTeam,
         setUpGame,
         DrawPlayerCard,
         PlayPlayerCards,
         setEffectsSounds,
         drawTwoCardUnoButton,
         changeColorEspecialCard,
+        handleSetIaCoop
       }}
     >
       {children}

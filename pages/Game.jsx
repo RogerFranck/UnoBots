@@ -7,8 +7,14 @@ import ButtonUno from "../components/General/ButtonUno";
 import SelectedColor from "../components/General/SelectedColor";
 import Bar from "../components/Sidebar/Bar";
 import useGameMaster from "../hooks/useGameMaster";
+import { useRouter } from "next/router";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Avatar } from "@mui/material";
+import Link from "next/link";
 
 export default function Home() {
+  const router = useRouter();
+  const { nickName } = router.query;
   const {
     win,
     players,
@@ -17,8 +23,8 @@ export default function Home() {
     turno,
     FobosBot,
     DeimosBot,
+    isIaTeam,
   } = useGameMaster();
-
   return (
     <div className={styles.Home}>
       <SelectedColor />
@@ -27,11 +33,30 @@ export default function Home() {
       ) : (
         <>
           <div className={styles.Sidebar}>
-            <Bar />
-          </div>
-          <h1 style={{ display: "flex", justifyContent: "space-between" }}>
-            <div>Arttis: GameBots</div>{" "}
+            <div className={styles.Sidebar}>
+              <Link href="/">
+                <Avatar
+                  style={{
+                    backgroundColor: "black",
+                    cursor: "pointer",
+                    marginRight: "25px",
+                  }}
+                >
+                  <ArrowBackIcon />
+                </Avatar>
+              </Link>
+              <Bar />
+              <div
+                style={{
+                  marginLeft: "25px",
+                }}
+                className={styles.txt}
+              >
+                Arttis: GameBots
+              </div>
+            </div>
             <div
+              className={styles.txt}
               style={
                 players[turno] == "playerHand"
                   ? {
@@ -40,9 +65,13 @@ export default function Home() {
                   : { color: "white" }
               }
             >
-              Turn of {players[turno]}
+              {players[turno] == "playerHand" ? (
+                <>Turn of {nickName}</>
+              ) : (
+                <>Turn of {players[turno]}</>
+              )}
             </div>
-          </h1>
+          </div>
           <div className={styles.play}>
             <BotHand listCard={FobosBot} left />
             <div className={styles.desks}>
@@ -59,7 +88,10 @@ export default function Home() {
           </center>
         </>
       )}
-      <span>educational purposes</span>
+      <div className={styles.Sidebar}>
+        <span>educational purposes</span>
+        <span> Bots mode: {isIaTeam ? "team" : "single"} </span>
+      </div>
     </div>
   );
 }

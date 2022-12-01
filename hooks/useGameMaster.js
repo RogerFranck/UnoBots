@@ -19,8 +19,8 @@ export default function useGameMaster() {
     drawTwoCardUnoButton,
     changeColorEspecialCard,
     logsArr,
+    isIaTeam,
   } = useContext(GameContext);
-
   const fun = {
     //* Pasando controladores de juego a los robots
     DrawPlayerCard,
@@ -56,7 +56,6 @@ export default function useGameMaster() {
       //* en caso de que el stack se acabe lo recompone con las catas jugadas previamente ordenadas al azar
       setUpGame(true, PlayZoneData);
     }
-    console.log("TURNOS");
     if (playerHand.length == 0) {
       setwin({
         win: true,
@@ -87,12 +86,14 @@ export default function useGameMaster() {
       hand: DeimosBot,
       fun,
       PlayZoneData,
+      isIaTeam,
     });
     const Fobos = new Bot({
       name: "FobosBot",
       hand: FobosBot,
       fun,
       PlayZoneData,
+      isIaTeam,
     });
     let jugada = "";
     const timer = setTimeout(() => {
@@ -117,5 +118,6 @@ export default function useGameMaster() {
     turno,
     FobosBot,
     DeimosBot,
+    isIaTeam
   };
 }
