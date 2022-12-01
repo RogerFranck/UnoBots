@@ -5,7 +5,8 @@ import {
   NEXT_PLAYER,
   SET_SOUND,
   NEW_SEQUENCE,
-  OPEN_SELECTED_CARD_MODAL
+  OPEN_SELECTED_CARD_MODAL,
+  SET_IA_COOP,
 } from "./types";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -24,6 +25,11 @@ export default (state, action) => {
         ...state,
         [payload.target]: payload.newPlayerHand,
         PlayZone: payload.newPlace,
+      };
+    case SET_IA_COOP:
+      return {
+        ...state,
+        isIaTeam: payload,
       };
     case NEW_SEQUENCE:
       return {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export default function BotHand({ listCard, left }) {
 
-  const CardListLimited = listCard.slice(0, 7) //* Limita visualmente las cartas disponibles (solo es visual, realmente si cuenta con esas cartas)
+  const CardListLimited = listCard.slice(0, 5) //* Limita visualmente las cartas disponibles (solo es visual, realmente si cuenta con esas cartas)
 
   const listItems = CardListLimited.map((e, i) =>
     <UnoCard key={i} bot left={left} index={i} />

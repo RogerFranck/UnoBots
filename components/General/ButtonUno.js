@@ -1,45 +1,50 @@
-import { Avatar } from '@mui/material'
-import React from 'react'
-import { useState } from 'react'
-import { useEffect } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Avatar } from "@mui/material";
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function ButtonUno({ drawTwoCardUnoButton }) {
-
-  const [click, setclick] = useState(false)
+  const [click, setclick] = useState(false);
 
   const NoclickButton = () => {
-    drawTwoCardUnoButton() //* Controlador de castigo
-  }
+    drawTwoCardUnoButton(); //* Controlador de castigo
+  };
 
   const clickButton = () => {
-    setclick(true)
-  }
+    setclick(true);
+  };
 
-  useEffect(() => { //* Al renderizar componente inicia un timer para ejecutar la funcion de castigo
-    if (!click) { //* si el btn es precionado antes de que se acabe el tiempo se mata el componente y no se ejecuta el castigo
+  useEffect(() => {
+    //* Al renderizar componente inicia un timer para ejecutar la funcion de castigo
+    if (!click) {
+      //* si el btn es precionado antes de que se acabe el tiempo se mata el componente y no se ejecuta el castigo
       const timer = setTimeout(() => {
-        NoclickButton()
+        NoclickButton();
       }, 1500);
       return () => clearTimeout(timer);
     }
-  }, [click])
-
+  }, [click]);
 
   return (
     <>
-      {!click &&
-        <Avatar style={{
-          backgroundColor: 'orangered',
-          fontSize: '13px',
-          cursor: 'pointer',
-          border: '1px solid white',
-        }}
+      {!click && (
+        <Avatar
+          style={{
+            backgroundColor: "orangered",
+            fontSize: "13px",
+            cursor: "pointer",
+            border: "1px solid white",
+            position: "absolute",
+            top: `${Math.floor(Math.random() * 90)}vh`,
+            left: `${Math.floor(Math.random() * 90)}%`,
+            zIndex: 500,
+          }}
           onClick={clickButton}
         >
           UNO
         </Avatar>
-      }
+      )}
     </>
-
-  )
+  );
 }

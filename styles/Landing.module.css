@@ -1,0 +1,63 @@
+.menu {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 4em;
+  margin: 40px 0px 50px 0px;
+}
+
+.btn {
+  width: 300px;
+  background: #a0b5eb;
+  background: -moz-linear-gradient(left, #a0b5eb 0%, #ea52f8 0%, #0066ff 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #a0b5eb 0%,
+    #ea52f8 0%,
+    #0066ff 100%
+  );
+  background: linear-gradient(to right, #a0b5eb 0%, #ea52f8 0%, #0066ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a0b5eb', endColorstr='#0066ff',GradientType=1 ); /* IE6-9 */
+}
+
+.img {
+  border-radius: 10px;
+}
+
+.campo {
+  margin-bottom: 30px;
+  width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.containerSelect {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.selectItemSelected {
+  width: 125px;
+  background-color: #0066ff;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selectItem {
+  width: 125px;
+  border: 3px solid #0066ff;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
